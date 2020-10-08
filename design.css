@@ -1,0 +1,56 @@
+@media (orientation: portrait) {
+  #map {
+          height: 100%;
+  }
+  .wrapper{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: : #000000;
+  }
+  .Main{
+    float: left;
+    width: 100%;
+    height: 90%;
+  }
+  .Screen{
+    width: 100%;
+    height: 100%;
+  }
+  .Screen[style*='visible']{
+    z-index: 1;
+  }
+  .Screen[style*='hidden']{
+    z-index: 0;
+  }
+
+
+  .Footer{
+    float: left;
+    width: 100%;
+    height: 10%;
+    font-size: 30px;
+    align-items:  center;
+  }
+  li{
+    list-style: none;
+  }
+  a{
+    size: 100%;
+    align: center;
+  }
+
+  .Taskbar{
+    float: left;
+    width: 20%;
+    height: 100%;
+
+  }
+  .Picture{
+    position: relative;
+    align-self: center;
+    height: 100%;
+  }
+
+}
