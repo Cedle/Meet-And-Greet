@@ -21,8 +21,8 @@
     position: absolute;
     top: 0;
     left: 0;
-
   }
+
   .Screen[style*='visible']{
     z-index: 1;
     transition-duration: 2s;
