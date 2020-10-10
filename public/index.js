@@ -3,7 +3,7 @@ let map;
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 49.784523, lng: 9.921944 },
-    zoom: 8,
+    zoom: 20,
   });
 }
 function changemap(){
@@ -35,7 +35,7 @@ function changechat(){
   document.getElementById("neu").style.visibility = 'hidden';
   document.getElementById("chat").style.visibility = 'visible';
   document.getElementById("profil").style.visibility = 'hidden';
-  
+
 }
 function changeprofil(){
   document.getElementById("home").style.visibility = 'hidden';
