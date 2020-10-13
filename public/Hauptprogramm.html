@@ -3,14 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="Meet And Greet">
-    <link rel="stylesheet" href="design.css">
+    <link rel="stylesheet" href="./design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
   </head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
-
+  <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
   <!-- TODO: Add SDKs for Firebase products that you want to use
       https://firebase.google.com/docs/web/setup#available-libraries -->
   <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
@@ -38,6 +41,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initMap&libraries=&v=weekly" defer></script>
 
     <script src="./index.js"></script>
+    <script src="./JQuerry_Extention.js"></script>
 
     <div class="wrapper">
       <div class="Main">
@@ -45,7 +49,8 @@
         <div class="Screen" id="home" style="visibility: visible;">
           <a href="#">
             <div>
-
+              <!--Hier kommen die Funktionen für Freundes Kram hin-->
+            
             </div>
           </a>
 
@@ -54,30 +59,108 @@
         <div class="Screen" id="map" style="visibility: hidden;">
 
         </div>
+        <div class="behind"></div>
         <div class="Screen" id="neu" style="visibility: hidden;">
+          <h1 id="eventhead">Event anlegen</h1>
+          <h1 id="eventsubheads">Eventname</h1>
+          <textarea id="eventtitle" cols="40" rows="1"></textarea>
+          <br>
+          <h1 id="eventsubheads">Eventdatum und Eventzeit festlegen</h1>
+          <input type="datetime-local" id="eventtime" value="2020-10-10T19:00">
+          <br>
+          <h1 id="eventsubheads">Eventbeschreibung</h1>
+          <textarea id="eventdesc" cols="40" rows="1"></textarea>
+          <br>
+          <h1 id="eventsubheads">Eventort</h1>
+          <div id="map" class="eventmap"></div>
+          <br>
+          <h1 id="eventsubheads">Eventsichtbarkeit</h1>
+          <input type="radio" id="eventtype" name="eventtype" value="priv">
+          <label for="eventtypepriv"id="eventtypetext">Pirvates Event erstellen</label><br>
+          <br>
+          <input type="radio" id="eventtype" name="eventtype" value="public">
+          <label for="eventtypepublic" id="eventtypetext">Öffentliches Event erstellen</label>
+          <br>
+          <h1 id="eventsubheads">Freunde auswählen</h1>
+          <!--Anmerkung: Jonas ist schuld-->
+          <script>
+            var expanded = false;
 
+            function showCheckboxes() {
+              var checkboxes = document.getElementById("checkboxes");
+              if (!expanded) {
+                checkboxes.style.display = "block";
+                expanded = true;
+              } else {
+                checkboxes.style.display = "none";
+                expanded = false;
+              }
+            }
+          </script>
+          <form>
+            <div class="multiselect">
+              <div class="selectBox" onclick="showCheckboxes()">
+                <select>
+                  <option>Select an option</option>
+                </select>
+                <div class="overSelect"></div>
+              </div>
+              <div id="checkboxes">
+                <label for="one">
+                  <!--
+                  <input type="checkbox" id="one" />First checkbox</label>
+                <label for="two">
+                  <input type="checkbox" id="two" />Second checkbox</label>
+                <label for="three">
+                  <input type="checkbox" id="three" />Third checkbox</label>
+                -->
+              </div>
+            </div>
+          </form>
+          <!--Die Funktion muss noch implementiert werden-->
+          <button onclick="sendEventToDatabase()" type="button" id="submitevent" >Event erstellen</button>
+          
         </div>
         <div class="Screen" id="chat" style="visibility: hidden;">
+          
+          <ul id="messages"></ul>
+          <form onsubmit="return sendMessage();">
+            <input id="message" placeholder="Enter message" autocomplete="off">
 
+            <input type="submit">
+
+          </form>
         </div>
         <div class="Screen" id="profil" style="visibility: hidden;">
+          <h1 id="profilhead">Profil</h1>
+          <br>
+          <div id="imgdiv"><img id="img" src="./Bilder/profilepicture.jpg" alt="Profilepicture"></div>
           
-          <h1>Profil</h1>
-          <h1>Name</h1>
-
-          <h1>Bio</h1>
+          <br>
+          <div id="changePicture">
+            <div>neues Bild</div>
+           <input id="hiddenButton" onchange="chooseFile(event)" type="file">
+          </div>
+          <br>
+          <textarea maxlength="21" name="name" id="name" cols="40" rows="1"></textarea>
+          <br>
+          <textarea maxlength="150" name="Bio" id="bio" cols="30" rows="10"></textarea>
+          <br>
+          <button onclick="changeUserInfo()" type="button" id="changeUserInfo" >Änderungen speichern</button>
+          
         </div>
       </div>
+      <div id="end"></div>
       <div class="Footer">
-        <li class="Taskbar"><a href="#" onclick="changehome();"><img class="Picture" src="./Bilder/Home.png" alt="Home Button"></a></li>
-        <li class="Taskbar"><a href="#" onclick="changemap()"><img class="Picture" src="./Bilder/Map.png" alt="Home Button"></a></li>
-        <li class="Taskbar"><a href="#" onclick="changeneu()"><img class="Picture" src="./Bilder/Neu.png" alt="Home Button"></a></li>
-        <li class="Taskbar"><a href="#" onclick="changechat()"><img class="Picture" src="./Bilder/Chat.png" alt="Home Button"></a></li>
-        <li class="Taskbar"><a href="#" onclick="changeprofil()"><img class="Picture" src="./Bilder/Profile.png" alt="Home Button"></a></li>
+        <a class="active" id="nav_home" href="#" onclick="changehome();"><i class="fa fa-home"></i></a> 
+        <a id="nav_map" href="#" onclick="changemap()"><i class="fa fa-map-marker"></i></a>
+        <a id="nav_neu" href="#" onclick="changeneu()"><i class="fa fa-plus-square"></i></a>
+        <a id="nav_chat" href="#" onclick="changechat()"><i class="fa fa-envelope"></i></a> 
+        <a id="nav_profil" href="#" onclick="changeprofil(),updateProfil()"><i class="fa fa-user-circle"></i></a> 
       </div>
 
     </div>
-
+    
 
   </body>
 

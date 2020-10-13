@@ -8,37 +8,46 @@ const db = admin.firestore();
 userApp.use(cors({origin: true}));
 
 
-userApp.get('/',async(req,res) => {
-  const snapshot = await db.collection('users').get();
+// userApp.get('/:email',async(req,res) => {
+//   const snapshot = await db.collection('users').get();
 
-  let users = [];
-  snapshot.forEach(doc => {
-    let id = doc.id;
-    let data = doc.data();
+//   let users = [];
+//   snapshot.forEach(doc => {
+//     let id = doc.id;
+//     let data = doc.data();
 
-    users.push({id, ...data});
+//     users.push({id, ...data});
 
-  });
-  res.status(200).send(JSON.stringify(users));
-});
+//   });
+//   res.status(200).send(JSON.stringify(users));
+// });
 
 //Holen
-userApp.get("/:id", async (req, res) => {
-  const snapshot = await db.collection('users').doc(req.params.id).get();
+userApp.get("/:uid", async (req, res) => {
+  const snapshot = await db.collection('users').get();
+  let userId;
+  let userData;
+  snapshot.forEach(doc => {
+    
+    if(doc.data().uid === req.params.uid){
+      userId = doc.id;
+      userData = doc.data();
+    }
 
-  const userId = snapshot.id;
-  const userData = snapshot.data();
-
-  res.status(200).send(JSON.stringify({id: userId, ...userData}));
+    
+  });
+  if(userId !== null){
+    res.status(200).send(JSON.stringify({id: userId, ...userData}));
+  }
+  
 });
+
 //Erstellen
-
 userApp.post('/', async(req,res)=> {
-  const user = req.body;
-
-  await db.collection('users').add(user);
-
+  const user = req.body; 
+  db.collection('users').add(user);
   res.status(201).send();
+  
 });
 
 //Überschreiben(Update)

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="Meet And Greet">
+    <link rel="stylesheet" href="./design.css">
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+  </head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-storage.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+
+  <script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyD61VYZKulRZK6VaGs9cvHLwAOdiYpdpfc",
+    authDomain: "meet-and-greet-cb3de.firebaseapp.com",
+    databaseURL: "https://meet-and-greet-cb3de.firebaseio.com",
+    projectId: "meet-and-greet-cb3de",
+    storageBucket: "meet-and-greet-cb3de.appspot.com",
+    messagingSenderId: "843402397043",
+    appId: "1:843402397043:web:13040a9e9f2b6a26adb106",
+    measurementId: "G-C1BEB68RMJ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  </script>
+  <body>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"> </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initMap&libraries=&v=weekly" defer></script>
+
+    <script src="./index.js"></script>
+    <script src="./JQuerry_Extention.js"></script>
+
+    <div class="wrapper">
+      <div class="Main">
+
+        <div class="Screen" id="home" style="visibility: visible;">
+          <a href="#">
+            <div>
+
+            </div>
+          </a>
+
+
+        </div>
+        <div class="Screen" id="map" style="visibility: hidden;">
+
+        </div>
+        <div class="Screen" id="neu" style="visibility: hidden;">
+
+        </div>
+        <div class="Screen" id="chat" style="visibility: hidden;">
+
+        </div>
+        <div class="Screen" id="profil" style="visibility: hidden;">
+          <h1 id="profilhead">Profil</h1>
+          <img id="img" src="./Bilder/profile.jpg" alt="Profilbild">
+          <input onchange="chooseFile(event)" type="file">
+          
+          
+          <textarea name="name" id="name" cols="40" rows="1"></textarea>
+          
+          <br>
+          <textarea name="Bio" id="bio" cols="30" rows="10"></textarea>
+          <br>
+          <button onclick="changeUserInfo()" type="button" id="changeUserInfo">Änderungen übernehmen</button>
+          
+        </div>
+      </div>
+      <div class="Footer">
+        <li class="Taskbar"><a href="#" onclick="changehome();"><img class="Picture" src="./Bilder/Home.png" alt="Home Button"></a></li>
+        <li class="Taskbar"><a href="#" onclick="changemap()"><img class="Picture" src="./Bilder/Map.png" alt="Home Button"></a></li>
+        <li class="Taskbar"><a href="#" onclick="changeneu()"><img class="Picture" src="./Bilder/Neu.png" alt="Home Button"></a></li>
+        <li class="Taskbar"><a href="#" onclick="changechat()"><img class="Picture" src="./Bilder/Chat.png" alt="Home Button"></a></li>
+        <li class="Taskbar"><a href="#" onclick="changeprofil(),updateProfile()"><img class="Picture" src="./Bilder/Profile.png" alt="Home Button"></a></li>
+      </div>
+
+    </div>
+
+
+  </body>
+
+
+
+</html>
