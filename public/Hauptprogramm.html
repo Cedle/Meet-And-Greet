@@ -38,15 +38,16 @@
   </script>
   <body>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"> </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initMap&libraries=&v=weekly" defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initAutocomplete&libraries=places&v=weekly" defer></script>
+    <!--"https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initMap&libraries=&v=weekly"-->
 
-    <script src="./index.js"></script>
-    <script src="./JQuerry_Extention.js"></script>
+    <script src="./Javascript/init.js"></script>
+    
 
     <div class="wrapper">
       <div class="Main">
 
-        <div class="Screen" id="home" style="visibility: visible;">
+        <div class="Screen" id="home" style="display: inline-block;">
           <a href="#">
             <div>
               <!--Hier kommen die Funktionen für Freundes Kram hin-->
@@ -64,28 +65,34 @@
 
 
         </div>
-        <div class="Screen" id="map" style="visibility: hidden;">
-
+        <div class="Screen"  style="display: none;">
+          <input
+            id="pac-input"
+            class="controls"
+            type="text"
+            placeholder="Search Box"
+          />
+          <div id="map"></div>
         </div>
-        <div class="Screen" id="neu" style="visibility: hidden;">
+        <div class="Screen" id="neu" style="display: none;">
           <h1 id="eventhead">Event anlegen</h1>
           <h1 id="eventsubheads">Eventname</h1>
-          <textarea id="eventtitle" cols="40" rows="1"></textarea>
+            <textarea id="eventtitle" cols="40" rows="1"></textarea>
           <br>
           <h1 id="eventsubheads">Eventdatum und Eventzeit festlegen</h1>
-          <input type="datetime-local" id="eventtime" value="2020-10-10T19:00">
+            <input type="datetime-local" id="eventtime" value="2020-10-10T19:00">
           <br>
           <h1 id="eventsubheads">Eventbeschreibung</h1>
-          <textarea id="eventdesc" cols="40" rows="1"></textarea>
+            <textarea id="eventdesc" cols="40" rows="1"></textarea>
           <br>
           <h1 id="eventsubheads">Eventort</h1>
-          <div id="map" class="eventmap"></div>
+            <div id="map2" class="eventmap"></div>
           <br>
           <h1 id="eventsubheads">Eventsichtbarkeit</h1>
-          <input type="radio" id="eventtype" name="eventtype" value="priv">
+            <input type="radio" id="private" name="eventtype" value="private">
           <label for="eventtypepriv"id="eventtypetext">Pirvates Event erstellen</label><br>
           <br>
-          <input type="radio" id="eventtype" name="eventtype" value="public">
+            <input type="radio" id="public" name="eventtype" value="public">
           <label for="eventtypepublic" id="eventtypetext">Öffentliches Event erstellen</label>
           <br>
           <h1 id="eventsubheads">Freunde auswählen</h1>
@@ -125,10 +132,10 @@
             </div>
           </form>
           <!--Die Funktion muss noch implementiert werden-->
-          <button onclick="sendEventToDatabase()" type="button" id="submitevent" >Event erstellen</button>
+          <button onclick="newEvent()" type="button" id="submitevent" >Event erstellen</button>
           
         </div>
-        <div class="Screen" id="chat" style="visibility: hidden;">
+        <div class="Screen" id="chat" style="display: none;">
           
           <ul id="messages"></ul>
           <form onsubmit="return sendMessage();">
@@ -138,7 +145,7 @@
 
           </form>
         </div>
-        <div class="Screen" id="profil" style="visibility: hidden;">
+        <div class="Screen" id="profil" style="display: none;">
           <h1 id="profilhead">Profil</h1>
           <br>
           <div id="imgdiv"><img id="img" src="./Bilder/profilepicture.jpg" alt="Profilepicture"></div>
@@ -167,9 +174,12 @@
 
     </div>
     
-
+    <script src="./JQuerry_Extention.js"></script>
+    <script src="./Javascript/profile.js"></script>
+    <script src="./Javascript/map.js"></script>
+    <script src="./Javascript/uiOnChange.js"></script>
+    <script src="./Javascript/chat.js"></script>
+    <script src="./Javascript/event.js"></script>
   </body>
-
-
-
+  
 </html>

@@ -1,4 +1,4 @@
-
+@media (orientation:horizontal){
   body{
     min-height: 100vh;
     background-color:#484848;
@@ -37,17 +37,10 @@
     text-align: center;
     display:inline-block;
     width: 100%;
-    height: 90vh;
+    margin-bottom: 10vh;
     position: absolute;
     top: 0;
     left: 0;
-  }
-  .Screen[style*='visible']{
-    z-index: 1;
-    transition-duration: 2s;
-  }
-  .Screen[style*='hidden']{
-    z-index: 0;
   }
   .dot{
     height: 25px;
@@ -413,3 +406,435 @@
     display:inline-block;
     text-align: center;
   }
+}
+
+@media (orientation:portrait){
+  body{
+    min-height: 100vh;
+    background-color:#484848;
+    font-size: 100%;
+    padding: 0em;
+    margin: 0em;
+   }
+  .wrapper{
+    display:felx;
+    align-items: center;
+    width: 100vw;
+    height: 100%;
+    min-height: 100vw;
+    margin: 0;
+    padding: 0;
+    color:  #000000;
+    z-index: 0;
+    top: 0em;
+    left: 0em;
+  }
+  
+  @font-face{
+    font-family: "oswald";
+    src: url("./Font/Oswald-VariableFont_wght.ttf")
+  }
+  .Main{
+    text-align: center;
+    z-index: 0;
+    display:inline-block;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    padding: 0em;
+  }
+  .Screen{
+    text-align: center;
+    display:inline-block;
+    width: 100%;
+    margin-bottom: 10vh;
+    min-height: 90vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .Screen[style*='visible']{
+    z-index: 1;
+    transition-duration: 2s;
+  }
+  .dot{
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  #end{
+    height: 10vh;
+  }
+  .Footer{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    transition: all 0.3s ease;
+    z-index: 999;
+    display:inline-block;
+    text-align: center;
+    width: 100%;
+    height: 10%;
+    font-size: 30px;
+    align-items:  center;
+    background-color: #555;
+    padding: 0em;
+
+  }
+  .Footer a{
+    text-decoration: none;
+    margin: 0em;
+    text-align: center;
+    color: white;
+    float: left;
+    font-size: 16vw;
+    transition: all 0.3s ease;
+    width: 20%;
+    height: 100%;
+  }
+  i{
+    width: 100%;
+    margin: 0em;
+    padding: 0em;
+  }
+  .active{
+    background-color: #FFA500;
+  }
+  .Picture{
+    z-index: 2;
+    position: relative;
+    align-self: center;
+    height: 100%;
+  }
+
+
+  
+
+   /**Event**/
+   #eventhead{
+    font-family: oswald;
+    color:white;
+    font-size : 70px;
+    text-align: center;
+    height: 10vh;
+    display:inline-block;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    vertical-align: middle;
+  }
+  #eventsubheads{
+    font-family: oswald;
+    color:white;
+    font-size : 50px;
+    text-align: left;
+    display:inline-block;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    vertical-align: middle;
+  }
+  #eventtitle{
+    border-radius: 25px;
+    border-width: 5px;
+    border-color:rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 5vh;
+    padding: 0em;
+    font-size: 3vw;
+    font-family: oswald;
+    display:inline-block;
+    text-align: center;
+  }
+  #eventtime{
+    border-radius: 25px;
+    border-width: 5px;
+    border-color:rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 5vh;
+    padding: 0em;
+    font-size: 3vw;
+    font-family: oswald;
+    display:inline-block;
+    text-align: center;
+  }
+  #eventdesc{
+    border-radius: 25px;
+    border-width: 5px;
+    border-color:rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 10vh;
+    font-size: 3vw;
+    font-family: oswald;
+    display:inline-block;
+    text-align: center;
+    
+  }
+  #map2{
+    border-radius: 25px;
+    border-width: 5px;
+    border-color:rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 30vh;
+    font-size: 3vw;
+    font-family: oswald;
+    display:inline-block;
+    text-align: center;
+  }
+  #eventtype{
+    transform: scale(4);
+    margin-left: 10%;
+    margin-right: 5%;
+  }
+  #eventtypetext{
+    font-family: oswald;
+    color:white;
+    font-size : 50px;
+    text-align: left;
+    display:inline-block;
+    width: 60%;
+    vertical-align: middle;
+  }
+  .neu form{
+    height: 7vh;
+    width: 70%;
+  }
+  .multiselect {
+    margin-left: 20%;
+    margin-right: 20%;
+
+  }
+  
+  .selectBox {
+    position: relative;
+    height: 5vh;
+  }
+  
+  .selectBox select {
+    width: 100%;
+    font-weight: bold;
+  }
+  
+  .overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  
+  #checkboxes {
+    display: none;
+    border: 1px #dadada solid;
+  }
+  
+  #checkboxes label {
+    display: block;
+  }
+  
+  #checkboxes label:hover {
+    background-color: #1e90ff;
+  }
+  #submitevent{
+    border-radius: 25px;
+    padding: 2%; 
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 10vh;
+    display: block;
+    font-size: 50px;
+    background-color: #478ac9;
+    font-family: oswald;
+    color:white;
+    display:inline-block;
+    text-align: center;
+    margin-bottom: 2vh;
+  }
+
+
+  /* Chat */
+
+  #chat{
+    display: inline-block;
+    width: 100%;
+
+  }
+
+  #messages{
+    margin: 0em;
+    padding: 0em;
+    width: 100%;
+    margin-bottom: 8vh;
+    
+  }
+
+  #messages li{
+    background-color: white;
+    padding: 2vw;
+    margin: 2vw;
+    list-style: none;
+    width: 80%;
+    display: block;
+    border-radius: 30px;
+    font-size: 3vw;
+  }
+  #chat form{
+    background-color: #484848;
+    width: 100vw;
+    padding: 0em;
+    margin: 0em;
+    position: fixed;
+    bottom: 10vh;
+    padding-top: 1vh;
+  }
+  #message{
+    word-break: break-all;
+    min-height: 3vh;
+    width: 70vw;
+    border: 0em;
+    padding-left: 4vw;
+    padding-right: 4vw;
+    font-size: 4vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    bottom: 10vh;
+    left: 0em;
+    border-radius: 50px;
+  }
+
+  #button{
+    height: 7vw;
+    border-radius: 50%;
+    z-index: 1;
+    width: 20vw;
+    font-size: 3vw;
+    right: 0em;
+  }
+
+
+
+  /* Profil */
+
+  #profilhead{
+    font-family: oswald;
+    color:white;
+    font-size : 70px;
+    text-align: center;
+    height: 10%;
+    display:inline-block;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+    vertical-align: middle;
+  }
+  #imgdiv{
+    display:inline-block;
+    height: 20%;
+    width: 100%;
+    text-align: center;
+  }
+  #img{
+    display:inline-block;
+    object-fit: cover;
+    border-radius: 50%;
+    height: calc(18vh);
+    width: calc(18vh);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  
+
+
+  #changePicture{
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 5%;
+    width: 20%;
+    padding: 0em;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    font-size: 3vw;
+    font-family: oswald;
+    background-color: #478ac9;
+    color:white;
+    text-align: center;
+  }
+  #changePicture div{
+    padding: 0em;
+    margin: 0em;
+    height: 100%;
+    width: 100%;
+    grid-row-start: 1;
+    grid-column-start: 1
+  }
+  #hiddenButton{
+    grid-row-start: 1;
+    grid-column-start: 1;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+  }
+  #name{
+    border-radius: 25px;
+    border-width: 5px;
+    border-color:rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 5%;
+    margin-top: 15%;
+    padding: 0em;
+    font-size: 3vw;
+    font-family: oswald;
+    display:inline-block;
+    text-align: center;
+  }
+  #bio{
+    border-radius: 25px;
+    border-width: 5px;
+    border-color:rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 10vh;
+    font-size: 3vw;
+    font-family: oswald;
+    display:inline-block;
+    text-align: center;
+  }
+  #changeUserInfo{
+    border-radius: 25px;
+    padding: 2%; 
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 10%;
+    display: block;
+    font-size: 50px;
+    background-color: #478ac9;
+    font-family: oswald;
+    color:white;
+    display:inline-block;
+    text-align: center;
+  }
+}

@@ -44,8 +44,12 @@ userApp.get("/:uid", async (req, res) => {
 
 //Erstellen
 userApp.post('/', async(req,res)=> {
-  const user = req.body; 
-  db.collection('users').add(user);
+  const user = req.body;
+  const temp = {
+    "temp" : "temp"
+  }
+  await db.collection('users').add(user);
+  db.collection('users/temp').add(temp);
   res.status(201).send();
   
 });
@@ -53,10 +57,8 @@ userApp.post('/', async(req,res)=> {
 //Überschreiben(Update)
 userApp.put("/:id", async (req, res) =>{
   const body = req.body;
-
   await db.collection('users').doc(req.params.id).update(body);
-
-  res.status(200).send();
+  
 
 
 });
