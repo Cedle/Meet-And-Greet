@@ -50,7 +50,15 @@
           <a href="#">
             <div>
               <!--Hier kommen die Funktionen für Freundes Kram hin-->
-            
+              <!-- <script>
+                const cityRef = db.collection('cities').doc('SF');
+                const doc = await cityRef.get();
+                if (!doc.exists) {
+                  console.log('No such document!');
+                } else {
+                  console.log('Document data:', doc.data());
+                }
+              </script> -->
             </div>
           </a>
 
@@ -59,7 +67,6 @@
         <div class="Screen" id="map" style="visibility: hidden;">
 
         </div>
-        <div class="behind"></div>
         <div class="Screen" id="neu" style="visibility: hidden;">
           <h1 id="eventhead">Event anlegen</h1>
           <h1 id="eventsubheads">Eventname</h1>
@@ -107,13 +114,13 @@
               </div>
               <div id="checkboxes">
                 <label for="one">
-                  <!--
+                  
                   <input type="checkbox" id="one" />First checkbox</label>
                 <label for="two">
                   <input type="checkbox" id="two" />Second checkbox</label>
                 <label for="three">
                   <input type="checkbox" id="three" />Third checkbox</label>
-                -->
+               
               </div>
             </div>
           </form>
@@ -127,7 +134,7 @@
           <form onsubmit="return sendMessage();">
             <input id="message" placeholder="Enter message" autocomplete="off">
 
-            <input type="submit">
+            <input id="button" type="submit">
 
           </form>
         </div>
@@ -150,7 +157,6 @@
           
         </div>
       </div>
-      <div id="end"></div>
       <div class="Footer">
         <a class="active" id="nav_home" href="#" onclick="changehome();"><i class="fa fa-home"></i></a> 
         <a id="nav_map" href="#" onclick="changemap()"><i class="fa fa-map-marker"></i></a>
