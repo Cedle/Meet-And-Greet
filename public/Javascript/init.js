@@ -1,20 +1,19 @@
 let allData;
+let myuser;
 
-
-firebase.auth().onAuthStateChanged(function(user){
+firebase.auth().onAuthStateChanged( async function(user){
     if (user) {
-      myuser = user;
       let check = 0;
       let dbEmail;
       
       allData={
+        "uid" : user.uid,
         "userName" : user.displayName,
         "email" : user.email,
         "bio" : "",
-        "uid" : user.uid,
         "imgUrl" : ""
       }
-      $.getJSON("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/user/" + user.uid , function(usersData){
+      await $.getJSON("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/user/" + user.uid , function(usersData){
          
         // usersData.forEach(element => {
         //   email = element.email;

@@ -46,34 +46,35 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
 }
 // Eventdaten für Marker bekommen und eintragen
 
-firebase.database().ref("events/private/"+ allData.uid).on("child_added", function (snapshot3) {
-    snapshot4 = snapshot3
+  firebase.database().ref("events/private/"+ allData.uid).on("child_added", function (snapshot3) {
+      
+      var location
+    
+      location =
+        {
+          lat: snapshot3.val().eventPlace.lat,
+          lng: snapshot3.val().eventPlace.lng,
+          title: snapshot3.val().eventName,
+          //Bild einfügen? ich glaube nicht :-)
+          name: snapshot3.val().eventHost,
+          desc : snapshot3.val().eventDescription
+        }
+      addMarker(location,"http://maps.google.com/mapfiles/ms/icons/red-dot.png",0);
+  });
+
+  firebase.database().ref("events/public").on("child_added", function (snapshot2) {  
+    snapshot4 = snapshot2
     var location
-  
-    location =
+    
+    location = 
       {
-        lat: snapshot3.val().eventPlace.lat,
-        lng: snapshot3.val().eventPlace.lng,
-        host: snapshot3.val().eventHost,
+        lat: snapshot2.val().eventPlace.lat,
+        lng: snapshot2.val().eventPlace.lng,
+        title: snapshot2.val().eventName,
+        name: snapshot2.val().eventHost,
         //Bild einfügen? ich glaube nicht :-)
-        title : snapshot3.val().eventDescription
+        desc : snapshot2.val().eventDescription
       }
-    addMarker(location,"http://maps.google.com/mapfiles/ms/icons/blue-dot.png",0);
-    });
-  // firebase.database().ref("events/public").on("child_added", function (snapshot) {  
-  //   var location = []
-  //   var i = 0;
-  //   snapshot2.forEach((child) =>{
-  //   location[i] = 
-  //     {
-  //       lat: snapshot2.val().eventPlace(0),
-  //       lng: snapshot2.val().eventPlace(1),
-  //       host: snapshot2.val().eventHost,
-  //       //Bild einfügen? ich glaube nicht :-)
-  //       title : snapshot2.val().eventDescription
-  //     }
-  //     addMarker(location[i],"http://maps.google.com/mapfiles/ms/icons/blue-dot.png");
-  //     i++
-  //   });
-  // })
+      addMarker(location,"http://maps.google.com/mapfiles/ms/icons/blue-dot.png",0); 
+  });
 
