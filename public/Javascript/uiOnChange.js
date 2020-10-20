@@ -49,7 +49,7 @@ async function changeprofil(){
     clearActive();
     document.getElementById("nav_profil").className = "active";
     try {
-      await firebase.storage().ref("users/" + allData.uid + "/profile.jpg").getDownloadURL().then(async imgUrl =>{
+      await firebase.storage().ref("users/" + allData.uuid + "/profile.jpg").getDownloadURL().then(async imgUrl =>{
         allData.imgUrl = imgUrl;
         document.getElementById("img").src = await imgUrl;
       })

@@ -60,7 +60,7 @@ userApp.put("/:id", async (req, res) =>{
   await db.collection('users').doc(req.params.id).update(body);
   
 
-
+  res.status(201).send();
 });
 //Löschen
 userApp.delete("/:id", async (req, res) =>{

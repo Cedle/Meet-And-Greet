@@ -46,6 +46,7 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
 }
 // Eventdaten für Marker bekommen und eintragen
 
+  
   firebase.database().ref("events/private/"+ allData.uid).on("child_added", function (snapshot3) {
       
       var location
@@ -72,8 +73,8 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
         lng: snapshot2.val().eventPlace.lng,
         title: snapshot2.val().eventName,
         name: snapshot2.val().eventHost,
-        //Bild einfügen? ich glaube nicht :-)
-        desc : snapshot2.val().eventDescription
+        desc : snapshot2.val().eventDescription,
+        picture: "<div style='float:left'><img src='http://i.stack.imgur.com/g672i.png'></div>"
       }
       addMarker(location,"http://maps.google.com/mapfiles/ms/icons/blue-dot.png",0); 
   });

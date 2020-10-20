@@ -83,7 +83,7 @@ function addMarker(location,image,type){
         google.maps.event.addListener(marker, 'click', (function(marker) {
         return function() {
             //infowindow.setContent('<h3>' + location['host'] + "<br>" + location['title'] + '</h3>');
-            infowindow.setContent('<h3>' + location['title'] +'</h3>'+ "<br>"+ location['name'] +"<br>"+ location['desc']);
+            infowindow.setContent(location['picture']+'<h1>' + location['title'] +'</h1>'+ "<h2>"+ location['name']+"</h2>" +"<br>"+ "<h3>"+location['desc']+"</h3>");
             infowindow.open(map, marker);
         }
         })(marker));
