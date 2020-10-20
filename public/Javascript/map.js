@@ -5,8 +5,62 @@ let postition;
 let pos;
 let marker2;
 
+
+function CustomMarker(latlng, map, imageSrc) {
+    this.latlng_ = latlng;
+    this.imageSrc = imageSrc;
+    // Once the LatLng and text are set, add the overlay to the map.  This will
+    // trigger a call to panes_changed which should in turn call draw.
+    this.setMap(map);
+  }
+
 function initAutocomplete() {
-		
+        
+    CustomMarker.prototype = new google.maps.OverlayView();
+
+    CustomMarker.prototype.draw = function() {
+    // Check if the div has been created.
+    var div = this.div_;
+    if (!div) {
+        // Create a overlay text DIV
+        div = this.div_ = document.createElement('div');
+        // Create the DIV representing our CustomMarker
+        div.className = "customMarker"
+
+
+        var img = document.createElement("img");
+        img.src = this.imageSrc;
+        div.appendChild(img);
+        var me = this;
+        google.maps.event.addDomListener(div, "click", function(event) {
+        google.maps.event.trigger(me, "click");
+        });
+
+        // Then add the overlay to the DOM
+        var panes = this.getPanes();
+        panes.overlayImage.appendChild(div);
+    }
+
+    // Position the overlay 
+    var point = this.getProjection().fromLatLngToDivPixel(this.latlng_);
+    if (point) {
+        div.style.left = point.x + 'px';
+        div.style.top = point.y + 'px';
+    }
+    };
+
+    CustomMarker.prototype.remove = function() {
+    // Check if the overlay was on the map and needs to be removed.
+    if (this.div_) {
+        this.div_.parentNode.removeChild(this.div_);
+        this.div_ = null;
+    }
+    };
+
+    CustomMarker.prototype.getPosition = function() {
+    return this.latlng_;
+    };
+
 	var myLatLng = {
 		lat			:	52.520008,
 		lng			:	13.404954
@@ -73,17 +127,28 @@ function initAutocomplete() {
 
 function addMarker(location,image,type){
     if(type == 0){
-        marker = new google.maps.Marker({
-        position	:	new google.maps.LatLng(location['lat'], location['lng']),
-        map			:	map,
-        animation	:	google.maps.Animation.DROP,
-        icon		:	image,
-        });
+        var icon = {
+            url: image, // url
+            scaledSize: new google.maps.Size(50, 50), // scaled size
+            origin: new google.maps.Point(0,0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
+        marker = new CustomMarker(new google.maps.LatLng(location['lat'], location['lng']), map, image);
+
+
+        // marker = new google.maps.Marker({
+        // position	:	new google.maps.LatLng(location['lat'], location['lng']),
+        // map			:	map,
+        // animation	:	google.maps.Animation.DROP,
+        // icon		:	icon,
+        // });
+        // marker.set("id", "icon");
         
         google.maps.event.addListener(marker, 'click', (function(marker) {
         return function() {
             //infowindow.setContent('<h3>' + location['host'] + "<br>" + location['title'] + '</h3>');
-            infowindow.setContent(location['picture']+'<h1>' + location['title'] +'</h1>'+ "<h2>"+ location['name']+"</h2>" +"<br>"+ "<h3>"+location['desc']+"</h3>");
+            infowindow.setContent("<div>"+location['picture']+"</div>"+'<div><h1>' + location['title'] +'</h1>'+ "<h2>"+ location['name']+"</h2>" +"<br>"+ "<h2>"+location['desc']+"</h2></div>");
             infowindow.open(map, marker);
         }
         })(marker));

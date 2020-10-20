@@ -109,8 +109,36 @@
     height: 100%;
   }
   /**Home**/
-  #Eventlistprivate{
-    text-align:center
+  #Eventtypehead{
+  font-family: oswald;
+    color:white;
+    font-size : 50px;
+    text-align: left;
+    display:inline-block;
+    vertical-align: middle;
+  }
+  .Eventpicture{
+    float: left;
+    width: auto;
+    height: 10vh;
+    border-radius: 50%;
+  }
+  .Eventpicture img{
+    object-fit: cover;
+    border: #000000;
+    border-style: solid;
+    border-radius: 50%;
+    margin-top: 1.5vh;
+    height: 7vh;
+    width: 7vh;
+    margin-left: 2.5vw;
+  }
+  .Eventdesc{
+    float : right;
+    width : 80%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
   .Eventlistprivatedesign{
     border-radius: 25px;
@@ -125,9 +153,46 @@
     font-size: 2vh;
     font-family: 'oswald';
     text-align: left;
+    
+    
   }
   
+  .customMarker {
+    position: absolute;
+    cursor: pointer;
+    background: #424242;
+    width: 100px;
+    height: 100px;
+    /* -width/2 */
+    margin-left: -50px;
+    /* -height + arrow */
+    margin-top: -110px;
+    border-radius: 50%;
+    padding: 0px;
+  }
   
+  .customMarker:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 40px;
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: #424242 transparent;
+    display: block;
+    width: 0;
+  }
+  
+  .customMarker img {
+    object-fit: cover;
+    width: 90px;
+    height: 90px;
+    margin: 5px;
+    border-radius: 50%;
+  }
+
+
+
 
    /**Event**/
    #eventhead{

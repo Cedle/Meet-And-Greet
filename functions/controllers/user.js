@@ -45,11 +45,7 @@ userApp.get("/:uid", async (req, res) => {
 //Erstellen
 userApp.post('/', async(req,res)=> {
   const user = req.body;
-  const temp = {
-    "temp" : "temp"
-  }
   await db.collection('users').add(user);
-  db.collection('users/temp').add(temp);
   res.status(201).send();
   
 });

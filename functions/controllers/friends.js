@@ -8,6 +8,8 @@ const db = admin.firestore();
 userApp.use(cors({origin: true}));
 
 
+
+
 //Erstellen
 userApp.post('/:id', async(req,res)=> {
     const freunde = req.body; 
@@ -32,5 +34,27 @@ userApp.put("/:id", async (req, res) =>{
   
   
   });
+
+  userApp.get('/:uuid', async(req, res)=> {
+    const snapshot = await db.collection('users').get();
+    let userImgUrl;
+    let name;
+    snapshot.forEach(doc => {
+
+      if(doc.data().uuid === req.params.uuid){
+        userImgUrl = doc.data().imgUrl;
+        name = doc.data().userName;
+      }
+  
+      
+    });
+    if(name !== null){
+      if(userImgUrl === ""){
+        userImgUrl = "./Bilder/profilepicture.jpg";
+      }
+      res.status(200).send(JSON.stringify({imgUrl: userImgUrl, userName: name}));
+    }
+  })
+
 
   exports.friends = functions.https.onRequest(userApp);

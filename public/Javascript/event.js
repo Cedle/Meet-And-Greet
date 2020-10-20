@@ -1,5 +1,6 @@
 let snapshot4;
-
+let data1;
+let uuid2 = allData.uuid;
 // Eventdaten aus "new" Tab holen
 function newEvent(){
   var ename = document.getElementById("eventtitle").value;
@@ -19,25 +20,22 @@ function newEvent(){
 function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
   console.log("vor if");
   if(evisibility === "private"){
-    firebase.database().ref('events/private/'+ allData.uid).push().set({
-      eventHost: allData.uid,
+    firebase.database().ref('events/private/'+ allData.uuid).push().set({
+      eventHost: allData.uuid,
       eventName: ename,
       eventDateTime: edatetime,
       eventDescription: edesc,
       eventPlace: eplace,
-      eventVisibility: evisibility,
       eventFriends: efriends
-      
     });
     console.log("true");
   }else if (evisibility === "public"){
     firebase.database().ref('events/public').push().set({
-      eventHost: allData.uid,
+      eventHost: allData.uuid,
       eventName: ename,
       eventDateTime: edatetime,
       eventDescription: edesc,
       eventPlace: eplace,
-      eventVisibility: evisibility,
       eventFriends: efriends
     });
     console.log("false");
@@ -47,35 +45,54 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
 // Eventdaten für Marker bekommen und eintragen
 
   
-  firebase.database().ref("events/private/"+ allData.uid).on("child_added", function (snapshot3) {
+  firebase.database().ref("events/private/"+ allData.uuid).on("child_added", async function (snapshot3) {
       
-      var location
-    
+      var userName;
+      var location;
+      var imgUrl;
+      await $.getJSON("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/friends/" + snapshot3.val().eventHost , function(usersData){
+        data1 = usersData;
+        userName = usersData.userName;
+        imgUrl = usersData.imgUrl;
+      })
+
       location =
         {
           lat: snapshot3.val().eventPlace.lat,
           lng: snapshot3.val().eventPlace.lng,
           title: snapshot3.val().eventName,
-          //Bild einfügen? ich glaube nicht :-)
-          name: snapshot3.val().eventHost,
-          desc : snapshot3.val().eventDescription
+          name: userName,
+          desc : snapshot3.val().eventDescription,
+          imgUrl: imgUrl,
+          picture: "<div style='float:left'><img style='height:7vh; width: 7vh; object-fit: cover; border-radius: 50%;' src="+ imgUrl+"></div>"
         }
-      addMarker(location,"http://maps.google.com/mapfiles/ms/icons/red-dot.png",0);
+      setEvent(location,"private");
+      addMarker(location,imgUrl,0);
   });
 
-  firebase.database().ref("events/public").on("child_added", function (snapshot2) {  
+  firebase.database().ref("events/public").on("child_added", async function (snapshot2) {  
     snapshot4 = snapshot2
-    var location
+    var userName;
+    var location;
+    var imgUrl;
+    await $.getJSON("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/friends/" + snapshot2.val().eventHost , function(usersData){
+      data1 = usersData;
+      userName = usersData.userName;
+      imgUrl = usersData.imgUrl;
+    })
     
     location = 
       {
         lat: snapshot2.val().eventPlace.lat,
         lng: snapshot2.val().eventPlace.lng,
         title: snapshot2.val().eventName,
-        name: snapshot2.val().eventHost,
+        name: userName,
         desc : snapshot2.val().eventDescription,
-        picture: "<div style='float:left'><img src='http://i.stack.imgur.com/g672i.png'></div>"
+        imgUrl: imgUrl,
+        picture: "<div style='float:left'><img style='height:7vh; width: 7vh; object-fit: cover; border-radius: 50%;' src="+ imgUrl+"></div>"
       }
-      addMarker(location,"http://maps.google.com/mapfiles/ms/icons/blue-dot.png",0); 
+
+      setEvent(location,"public");
+      addMarker(location,imgUrl,0); 
   });
 

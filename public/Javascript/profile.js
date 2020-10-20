@@ -9,7 +9,6 @@ function changeUserInfo(){
     changedData= {
       "userName": document.getElementById("name").value,
       "bio": document.getElementById("bio").value,
-      "imgUrl": allData.imgUrl
     }
     $.put("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/user/"+allData.id,changedData,function(){
     });
@@ -27,5 +26,11 @@ async function chooseFile(e){
     firebase.storage().ref("users/" + allData.uuid + "/profile.jpg").getDownloadURL().then(imgUrl =>{
         allData.imgUrl = imgUrl;
         document.getElementById("img").src = imgUrl;
+        changedData = {
+          "imgUrl": allData.imgUrl
+        }
+        $.put("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/user/"+allData.id,changedData,function(){
+    });
     })
+
 }

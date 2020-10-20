@@ -37,11 +37,18 @@
   firebase.analytics();
   </script>
   <body>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"> </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initAutocomplete&libraries=places&v=weekly" defer></script>
-    <!--"https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initMap&libraries=&v=weekly"-->
-
+    <script src="./JQuerry_Extention.js"></script>
     <script src="./Javascript/init.js"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"> </script>
+    <script src="./Javascript/profile.js" defer></script>
+    <script src="./Javascript/map.js" defer></script>
+    <script src="./Javascript/uiOnChange.js" defer></script>
+    <script src="./Javascript/chat.js" defer></script>
+    <script src="./Javascript/event.js" defer></script>
+    <script src="./Javascript/home.js" defer></script> -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initAutocomplete&libraries=places&v=weekly" defer></script> -->
+    <!--"https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initMap&libraries=&v=weekly"-->
+    
     
 
     <div class="wrapper">
@@ -49,17 +56,11 @@
 
         <div class="Screen" id="home" style="display: inline-block;">
           <a href="#">
-            <li id="Eventlistprivate">
-              <!--Hier kommen die Funktionen für Freundes Kram hin-->
-              <!-- <script>
-                const cityRef = db.collection('cities').doc('SF');
-                const doc = await cityRef.get();
-                if (!doc.exists) {
-                  console.log('No such document!');
-                } else {
-                  console.log('Document data:', doc.data());
-                }
-              </script> -->
+            <h1 id="eventhead">Eventlist</h1>
+            <h1 id="Eventtypehead">Private Events</h1>
+            <li id="Eventlistprivate"></li>
+            <h1 id="Eventtypehead">Öffentliche Events</h1>
+            <li id="Eventlistpublic"></li>
             </div>
           </a>
 
@@ -169,13 +170,9 @@
 
     </div>
     
-    <script src="./JQuerry_Extention.js"></script>
-    <script src="./Javascript/profile.js"></script>
-    <script src="./Javascript/map.js"></script>
-    <script src="./Javascript/uiOnChange.js"></script>
-    <script src="./Javascript/chat.js"></script>
-    <script src="./Javascript/event.js"></script>
-    <script src="./Javascript/home.js"></script>
+    
+    
+    <!-- <script src="./Javascript/customMarker.js"></script> -->
   </body>
   
 </html>
