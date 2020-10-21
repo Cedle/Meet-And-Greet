@@ -191,9 +191,46 @@
     border-radius: 50%;
   }
 
+  /**Map**/
+
+  #infowindow{
+    width: 20vh;
+    min-height: 10vh;
 
 
+  }
+  #infowindow_pic{
+    width: 100%;
+    float: left;
+  }
 
+  #infowindow_pic img{
+    width: 40%;
+    float: left;
+  }
+  #infowindow_pic p{
+    width: 60%;
+    float: right;
+  }
+
+  #infowindow_text{
+    width: 100%;
+    float: right;
+  }
+  #infowindow_pic p{
+    word-wrap: break-word;
+    font-size: 2vw;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+  }
+  #infowindow_text p{
+    word-wrap: break-word;
+    font-size: 2vw;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+  }
    /**Event**/
    #eventhead{
     font-family: oswald;

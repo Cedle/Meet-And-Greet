@@ -64,7 +64,7 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
           name: userName,
           desc : snapshot3.val().eventDescription,
           imgUrl: imgUrl,
-          picture: "<div style='float:left'><img style='height:7vh; width: 7vh; object-fit: cover; border-radius: 50%;' src="+ imgUrl+"></div>"
+          picture: "<img style='height:7vh; width: 7vh; object-fit: cover; border-radius: 50%;' src="+ imgUrl+">",
         }
       setEvent(location,"private");
       addMarker(location,imgUrl,0);

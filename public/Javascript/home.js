@@ -16,6 +16,7 @@ function setEvent(location,type){
   let content2 = document.createTextNode(location['name']);
   let content3 = document.createTextNode(location['desc']);
   
+  btn.onclick = showEvent(location['']);
   btn.className = "Eventlistprivatedesign";
   div1.className = "Eventpicture";
   div2.className = "Eventdesc";
@@ -37,3 +38,6 @@ function setEvent(location,type){
   }
 } 
 
+function showEvent(eid){
+
+}
