@@ -1,18 +1,31 @@
-function sendMessage(){
+
+
+async function sendMessage(){
+    // id = self.getAttribute("data-id");
+    // console.log("id =" + id);
     var message = document.getElementById("message").value;
-  
-    firebase.database().ref("messages").push().set({
+    // console.log("message = "+ message);
+    await firebase.database().ref("messages").push().set({
       "sender": allData.userName,
       "message": message,
-      "uid": allData.uid
+      "uuid": allData.uuid
     });
+    // console.log("message = "+ message);
     document.getElementById("message").value = "";
-    return false;
   }
-  firebase.database().ref("messages").on("child_added", function (snapshot) {
+  function deleteMessage(self){
+    var messageId = self.getAttribute("data-id");
+  
+    firebase.database().ref("messages").child(messageId).remove();
+  }
+  
+// function readMessages(id){  
+
+firebase.database().ref("messages").on("child_added", function (snapshot) {
+    console.log("write");
     var html = "";
     html += "<li id='message-" + snapshot.key + "'>";
-      if (snapshot.val().uid == allData.uid) {
+      if (snapshot.val().uuid == allData.uuid) {
         html += "<button data-id='" + snapshot.key + "' onclick='deleteMessage(this);'>";
           html += "Delete";
         html += "</button>";
@@ -21,15 +34,10 @@ function sendMessage(){
     html += "</li>";
   
     document.getElementById("messages").innerHTML += html;
-  })
-  
-  function deleteMessage(self){
-    var messageId = self.getAttribute("data-id");
-  
-    firebase.database().ref("messages").child(messageId).remove();
-  }
-  
-  firebase.database().ref("messages").on("child_removed", function(snapshot) {
+  }) 
+// }
+// function deleteMessages(id){
+firebase.database().ref("messages").on("child_removed", function(snapshot) {
     document.getElementById("message-" + snapshot.key).innerHTML = "this message has been removed"
   })
-  
+// }

@@ -5,9 +5,18 @@ function clearActive(){
     document.getElementById("nav_chat").className = "";
     document.getElementById("nav_profil").className = "";
 }
+function changeEvent(){
+    document.getElementById("eventinfoview").style.display = 'inline-block';
+    document.getElementById("home").style.display = 'none';
+    document.getElementById("map").style.display = 'none'; 
+    document.getElementById("neu").style.display = 'none';
+    document.getElementById("chat").style.display = 'none';
+    document.getElementById("profil").style.display = 'none';
+}
 function changemap(){
-    clearActive();
-    document.getElementById("nav_map").className = "active";
+    //clearActive();
+    //document.getElementById("nav_map").className = "active";
+    document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'none';
     document.getElementById("map").style.display = 'inline-block'; 
     document.getElementById("neu").style.display = 'none';
@@ -16,8 +25,9 @@ function changemap(){
     
 }
 function changehome(){
-    clearActive();
-    document.getElementById("nav_home").className = "active";
+    //clearActive();
+   // document.getElementById("nav_home").className = "active";
+   document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'inline-block';
     document.getElementById("map").style.display = 'none';
     document.getElementById("neu").style.display = 'none';
@@ -26,8 +36,9 @@ function changehome(){
   
 }
 function changeneu(){
-    clearActive();
-    document.getElementById("nav_neu").className = "active";
+    //clearActive();
+    //document.getElementById("nav_neu").className = "active";
+    document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'none';
     document.getElementById("map").style.display = 'none';
     document.getElementById("neu").style.display = 'inline-block';
@@ -36,8 +47,9 @@ function changeneu(){
   
 }
 function changechat(){
-    clearActive();
-    document.getElementById("nav_chat").className = "active";
+    //clearActive();
+    //document.getElementById("nav_chat").className = "active";
+    document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'none';
     document.getElementById("map").style.display = 'none';
     document.getElementById("neu").style.display = 'none';
@@ -46,14 +58,14 @@ function changechat(){
   
 }
 async function changeprofil(){
-    clearActive();
-    document.getElementById("nav_profil").className = "active";
+    // clearActive();
+    // document.getElementById("nav_profil").className = "active";
     try {
       await firebase.storage().ref("users/" + allData.uuid + "/profile.jpg").getDownloadURL().then(async imgUrl =>{
         allData.imgUrl = imgUrl;
         document.getElementById("img").src = await imgUrl;
       })
-      
+      document.getElementById("eventinfoview").style.display = 'none';
       document.getElementById("home").style.display = 'none';
       document.getElementById("map").style.display = 'none';
       document.getElementById("neu").style.display = 'none';
@@ -61,6 +73,7 @@ async function changeprofil(){
       document.getElementById("profil").style.display = 'inline-block';
    }
    catch (e) {
+    document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'none';
     document.getElementById("map").style.display = 'none';
     document.getElementById("neu").style.display = 'none';

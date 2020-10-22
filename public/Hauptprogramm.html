@@ -3,12 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="Meet And Greet">
-    <link rel="stylesheet" href="./design.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+    <link rel="stylesheet" href="./design.css">
   </head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
@@ -39,6 +41,8 @@
   <body>
     <script src="./JQuerry_Extention.js"></script>
     <script src="./Javascript/init.js"></script>
+
+     
     <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"> </script>
     <script src="./Javascript/profile.js" defer></script>
     <script src="./Javascript/map.js" defer></script>
@@ -48,12 +52,60 @@
     <script src="./Javascript/home.js" defer></script> -->
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initAutocomplete&libraries=places&v=weekly" defer></script> -->
     <!--"https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initMap&libraries=&v=weekly"-->
+  
     
+    <!-- Nav-Bar -->
+    <div class="container" id="mainContainer">
+      <div class="row" id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navBar">
+          <a class="navbar-brand" href="#">MeetAndGreet
+            <img src="./Bilder/Logo_Meet_and_Greet_App_2.png" width="40" height="30" alt="">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#page-top" onclick="changehome()">Home<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#page-top" onclick="changemap()">Karte</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#page-top" onclick= "changeneu()">Event erstellen</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#page-top" onclick= "changechat()">Chat</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#page-top" onclick= "changeprofil()">Profil</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div>
+        </nav>  
+      </div>
+      <!-- Nav-Bar Ende-->
+
     
-
-    <div class="wrapper">
-      <div class="Main">
-
+      <div class="row" id="untereReihe">
+        <div class="Screen" id="eventinfoview" style="display: none;">           
+            <img id="infopic">
+            <br>
+            <div id="infohead"></div>
+            <br>
+            <div id="infotime"></div>
+            <br>
+            <div id ="infodesc"></div>
+            <br>
+            <div id="infoDeleteEventButton"></div>
+            
+        </div>
         <div class="Screen" id="home" style="display: inline-block;">
           <a href="#">
             <h1 id="eventhead">Eventlist</h1>
@@ -63,36 +115,33 @@
             <li id="Eventlistpublic"></li>
             </div>
           </a>
-
-
         </div>
         <div class="Screen" id="map" style="display: none;">
-          
-          
         </div>
+
+        <!--Event erstellen-->
         <div class="Screen" id="neu" style="display: none;">
+          <img src="./Bilder/MeetandGreetLogo.png"  id="meetlogo"/>
           <h1 id="eventhead">Event anlegen</h1>
-          <h1 id="eventsubheads">Eventname</h1>
+          <h1 id="eventsubheads">Eventname:</h1>
             <textarea id="eventtitle" cols="40" rows="1"></textarea>
           <br>
-          <h1 id="eventsubheads">Eventdatum und Eventzeit festlegen</h1>
+          <h1 id="eventsubheads">Eventdatum und Eventzeit festlegen:</h1>
             <input type="datetime-local" id="eventtime" value="2020-10-10T19:00">
           <br>
-          <h1 id="eventsubheads">Eventbeschreibung</h1>
+          <h1 id="eventsubheads">Eventbeschreibung:</h1>
             <textarea id="eventdesc" cols="40" rows="1"></textarea>
           <br>
-          <h1 id="eventsubheads">Eventort</h1>
+          <h1 id="eventsubheads">Eventort:</h1>
             <div id="map2" class="eventmap"></div>
           <br>
-          <h1 id="eventsubheads">Eventsichtbarkeit</h1>
+          <h1 id="eventsubheads">Eventsichtbarkeit:</h1>
             <input type="radio" id="private" name="eventtype" value="private">
-          <label for="eventtypepriv"id="eventtypetext">Pirvates Event erstellen</label><br>
+          <label for="eventtypepriv"id="eventtypetext">Privates Event erstellen</label><br>
           <br>
-            <input type="radio" id="public" name="eventtype" value="public">
+            <input type="radio" id="public" name="eventtype" value="public"/>
           <label for="eventtypepublic" id="eventtypetext">Öffentliches Event erstellen</label>
           <br>
-          <h1 id="eventsubheads">Freunde auswählen</h1>
-          <!--Anmerkung: Jonas ist schuld-->
           <script>
             var expanded = false;
 
@@ -117,7 +166,6 @@
               </div>
               <div id="checkboxes">
                 <label for="one">
-                  
                   <input type="checkbox" id="one" />First checkbox</label>
                 <label for="two">
                   <input type="checkbox" id="two" />Second checkbox</label>
@@ -128,24 +176,22 @@
             </div>
           </form>
           <!--Die Funktion muss noch implementiert werden-->
-          <button onclick="newEvent()" type="button" id="submitevent" >Event erstellen</button>
-          
+          <button onclick="newEvent()" type="button" id="submitevent" >Event erstellen</button>  
         </div>
+
+        <!--Chat-->
         <div class="Screen" id="chat" style="display: none;">
           
           <ul id="messages"></ul>
-          <form onsubmit="return sendMessage();">
+          <form onsubmit="sendMessage();">
             <input id="message" placeholder="Enter message" autocomplete="off">
-
             <input id="button" type="submit">
-
           </form>
         </div>
         <div class="Screen" id="profil" style="display: none;">
           <h1 id="profilhead">Profil</h1>
           <br>
-          <div id="imgdiv"><img id="img" src="./Bilder/profilepicture.jpg" alt="Profilepicture"></div>
-          
+          <div id="imgdiv"><img id="img" src="./Bilder/profilepicture.jpg" alt="Profilepicture"></div>         
           <br>
           <div id="changePicture">
             <div>neues Bild</div>
@@ -160,6 +206,8 @@
           
         </div>
       </div>
+    
+      <!--
       <div class="Footer">
         <a class="active" id="nav_home" href="#" onclick="changehome();"><i class="fa fa-home"></i></a> 
         <a id="nav_map" href="#" onclick="changemap()"><i class="fa fa-map-marker"></i></a>
@@ -167,11 +215,13 @@
         <a id="nav_chat" href="#" onclick="changechat()"><i class="fa fa-envelope"></i></a> 
         <a id="nav_profil" href="#" onclick="changeprofil(),updateProfil()"><i class="fa fa-user-circle"></i></a> 
       </div>
+      -->
 
     </div>
+  
     
-    
-    
+    <!-- <script src="./Javascript/uiOnChange.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <!-- <script src="./Javascript/customMarker.js"></script> -->
   </body>
   

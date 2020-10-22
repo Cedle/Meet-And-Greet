@@ -148,7 +148,7 @@ function addMarker(location,image,type){
         google.maps.event.addListener(marker, 'click', (function(marker) {
         return function() {
             //infowindow.setContent('<h3>' + location['host'] + "<br>" + location['title'] + '</h3>');
-            infowindow.setContent("<div id='infowindow'><div id='infowindow_pic'>"+location['picture']+"<h1>" + location['title'] +'</h1>'+ "<p>"+ location['name']+"</p></div>"+"<div id='infowindow_text'>" +"<br>"+ "<p cols='20'>"+location['desc']+"</p></div><div>");
+            infowindow.setContent("<div id='infowindow'><div id='infowindow_pic'>"+location['picture']+"<h1>" + location['title']+'<br>'+'<h3>'+location['time']+'</h3>'+'</h1>'+ "<p>"+ location['name']+"</p></div>"+"<div id='infowindow_text'>" +"<br>"+ "<p cols='20'>"+location['desc']+"</p></div><div>");
             infowindow.open(map, marker);
         }
         })(marker));

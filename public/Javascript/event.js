@@ -43,7 +43,6 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
   console.log("nichts");
 }
 // Eventdaten für Marker bekommen und eintragen
-
   
   firebase.database().ref("events/private/"+ allData.uuid).on("child_added", async function (snapshot3) {
       
@@ -55,9 +54,11 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
         userName = usersData.userName;
         imgUrl = usersData.imgUrl;
       })
-
+      // deleteMessages(snapshot3.key);
+      // readMessages(snapshot3.key);
       location =
         {
+          id: snapshot3.key,
           lat: snapshot3.val().eventPlace.lat,
           lng: snapshot3.val().eventPlace.lng,
           title: snapshot3.val().eventName,
@@ -65,13 +66,16 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
           desc : snapshot3.val().eventDescription,
           imgUrl: imgUrl,
           picture: "<img style='height:7vh; width: 7vh; object-fit: cover; border-radius: 50%;' src="+ imgUrl+">",
+          time: snapshot3.val().eventDateTime,
+          friends: snapshot3.val().eventFriends,
+          host: snapshot3.val().eventHost
         }
       setEvent(location,"private");
       addMarker(location,imgUrl,0);
   });
 
   firebase.database().ref("events/public").on("child_added", async function (snapshot2) {  
-    snapshot4 = snapshot2
+    snapshot4 = snapshot2;
     var userName;
     var location;
     var imgUrl;
@@ -80,19 +84,48 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
       userName = usersData.userName;
       imgUrl = usersData.imgUrl;
     })
+    // deleteMessages(snapshot2.key);
+    // readMessages(snapshot2.key);
     
     location = 
       {
+        id: snapshot2.key,
         lat: snapshot2.val().eventPlace.lat,
         lng: snapshot2.val().eventPlace.lng,
         title: snapshot2.val().eventName,
         name: userName,
         desc : snapshot2.val().eventDescription,
         imgUrl: imgUrl,
-        picture: "<div style='float:left'><img style='height:7vh; width: 7vh; object-fit: cover; border-radius: 50%;' src="+ imgUrl+"></div>"
+        picture: "<div style='float:left'><img style='height:7vh; width: 7vh; object-fit: cover; border-radius: 50%;' src="+ imgUrl+"></div>",
+        time: snapshot2.val().eventDateTime,
+        friends: snapshot2.val().eventFriends,
+        host: snapshot2.val().eventHost
       }
 
       setEvent(location,"public");
       addMarker(location,imgUrl,0); 
   });
 
+//Events löschen
+function deleteEvent(uuid,eventhost,eventid){
+  if(uuid === eventhost){
+    try{
+      firebase.database().ref("events/private/"+uuid).child(eventid).remove();
+          document.getElementById(eventid).value = null;
+    }catch{
+      console.log("kein privates event mit Bezeichner gefunden");
+    }
+    try{
+      firebase.database().ref("events/public").child(eventid).remove();
+      document.getElementById(eventid).innerHTML = null;
+    }catch{
+      console.log("kein privates event mit Bezeichner gefunden");
+      console.log("löschen erfolglos");
+    }
+  }
+}
+// function deleteEventEntry(){
+//   return new firebase.database().ref("events/private/"+allData.uuid).on("child_removed", function(snapshot) {
+//     document.getElementById(eventid).innerHTML = "this message has been removed"
+//   })
+// }
