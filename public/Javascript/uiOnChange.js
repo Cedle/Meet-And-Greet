@@ -1,10 +1,4 @@
-function clearActive(){
-    document.getElementById("nav_home").className = "";
-    document.getElementById("nav_map").className = "";
-    document.getElementById("nav_neu").className = "";
-    document.getElementById("nav_chat").className = "";
-    document.getElementById("nav_profil").className = "";
-}
+
 function changeEvent(){
     document.getElementById("eventinfoview").style.display = 'inline-block';
     document.getElementById("home").style.display = 'none';
@@ -12,54 +6,105 @@ function changeEvent(){
     document.getElementById("neu").style.display = 'none';
     document.getElementById("chat").style.display = 'none';
     document.getElementById("profil").style.display = 'none';
+    document.getElementById("friends").style.display = 'none';
 }
-function changemap(){
-    //clearActive();
-    //document.getElementById("nav_map").className = "active";
+function changechat(){
+    document.getElementById("eventinfoview").style.display = 'none';
+    document.getElementById("home").style.display = 'none';
+    document.getElementById("map").style.display = 'none'; 
+    document.getElementById("neu").style.display = 'none';
+    document.getElementById("chat").style.display = 'inline-block';
+    document.getElementById("profil").style.display = 'none';
+    document.getElementById("friends").style.display = 'none';
+    document.getElementById("eventChatHead").value ="";
+}
+
+function changeMap(){
+    $(document).ready(function(){
+        $(".active").removeClass("active");
+        $("#nav_map").addClass("active");
+     });
+    
     document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'none';
     document.getElementById("map").style.display = 'inline-block'; 
     document.getElementById("neu").style.display = 'none';
     document.getElementById("chat").style.display = 'none';
     document.getElementById("profil").style.display = 'none';
+    document.getElementById("friends").style.display = 'none';
     
 }
-function changehome(){
-    //clearActive();
-   // document.getElementById("nav_home").className = "active";
-   document.getElementById("eventinfoview").style.display = 'none';
+function changeHome(){
+   
+    $(document).ready(function(){
+        $(".active").removeClass("active");
+        $("#nav_home").addClass("active");
+     });
+    
+    document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'inline-block';
     document.getElementById("map").style.display = 'none';
     document.getElementById("neu").style.display = 'none';
     document.getElementById("chat").style.display = 'none';
     document.getElementById("profil").style.display = 'none';
+    document.getElementById("friends").style.display = 'none';
   
 }
-function changeneu(){
-    //clearActive();
-    //document.getElementById("nav_neu").className = "active";
+function changeNeu(){
+    // clearActive();
+    $(document).ready(function(){
+        $(".active").removeClass("active");
+        $("#nav_neu").addClass("active");
+     });
+    // document.getElementById("nav_neu").style.color = "$navbar-dark-active-color";
     document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'none';
     document.getElementById("map").style.display = 'none';
     document.getElementById("neu").style.display = 'inline-block';
     document.getElementById("chat").style.display = 'none';
     document.getElementById("profil").style.display = 'none';
+    document.getElementById("friends").style.display = 'none';
   
 }
-function changechat(){
-    //clearActive();
-    //document.getElementById("nav_chat").className = "active";
+function changeFriends(){
+    // clearActive();
+    $(document).ready(function(){
+        $(".active").removeClass("active");
+        $("#nav_friends").addClass("active");
+     });
+    // document.getElementById("nav_chat").style.color = "$navbar-dark-active-color";
     document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'none';
     document.getElementById("map").style.display = 'none';
     document.getElementById("neu").style.display = 'none';
-    document.getElementById("chat").style.display = 'inline-block';
+    document.getElementById("chat").style.display = 'none';
+    document.getElementById("friends").style.display = 'inline-block';
     document.getElementById("profil").style.display = 'none';
-  
 }
-async function changeprofil(){
+
+// function changeChat(){
+//     // clearActive();
+//     $(document).ready(function(){
+//         $(".active").removeClass("active");
+//         $("#nav_chat").addClass("active");
+//      });
+//     // document.getElementById("nav_chat").style.color = "$navbar-dark-active-color";
+//     document.getElementById("eventinfoview").style.display = 'none';
+//     document.getElementById("home").style.display = 'none';
+//     document.getElementById("map").style.display = 'none';
+//     document.getElementById("neu").style.display = 'none';
+//     document.getElementById("chat").style.display = 'inline-block';
+//     document.getElementById("profil").style.display = 'none';
+//     document.getElementById("friends").style.display = 'none';
+// }
+async function changeProfil(){
+    updateProfil();
     // clearActive();
-    // document.getElementById("nav_profil").className = "active";
+    $(document).ready(function(){
+        $(".active").removeClass("active");
+        $("#nav_profil").addClass("active");
+     });
+    // document.getElementById("nav_profil").style.color = "$navbar-dark-active-color";
     try {
       await firebase.storage().ref("users/" + allData.uuid + "/profile.jpg").getDownloadURL().then(async imgUrl =>{
         allData.imgUrl = imgUrl;
@@ -71,6 +116,7 @@ async function changeprofil(){
       document.getElementById("neu").style.display = 'none';
       document.getElementById("chat").style.display = 'none';
       document.getElementById("profil").style.display = 'inline-block';
+      document.getElementById("friends").style.display = 'none';
    }
    catch (e) {
     document.getElementById("eventinfoview").style.display = 'none';
@@ -79,6 +125,7 @@ async function changeprofil(){
     document.getElementById("neu").style.display = 'none';
     document.getElementById("chat").style.display = 'none';
     document.getElementById("profil").style.display = 'inline-block';
+    document.getElementById("friends").style.display = 'none';
       
    }
   

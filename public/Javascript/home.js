@@ -30,7 +30,7 @@ function setEvent(location,type){
   div2.appendChild(content3);
   btn.appendChild(div1);
   btn.appendChild(div2);
-  btn.onclick = function() {showEvent(locationstring)};
+  btn.onclick = function() {createEventChat(location['title'],location['id'],locationstring)};
   if(type == "private"){
     document.getElementById("Eventlistprivate").appendChild(btn);
   }else if(type == "public"){
@@ -38,18 +38,38 @@ function setEvent(location,type){
   }
 } 
 
-async function showEvent(location){
-  location = JSON.parse(location);
-  console.log(location['imgUrl']);
-  document.getElementById("infopic").src = await location['imgUrl'];
-  document.getElementById("infohead").textContent = location['title'];
-  document.getElementById("infotime").textContent = location['time'];
-  document.getElementById("infodesc").textContent = location['desc'];
-  if(typeof btn == "undefined"){
-  btn = document.createElement("button");
+async function createEventChat(title,eid,locationstring){
+  
+  document.getElementById("eventChatHead").innerHTML= String(title);
+  document.getElementById("eventChatHead").onclick = function() {showEvent(locationstring);};
+  
+  if(typeof list == "undefined"){
+    list = document.createElement("ul");
   }
-  btn.className = "infoDeleteEventButtonDesign";
-  btn.onclick = function() {deleteEvent(allData.uuid,location['host'],location['id'])};
-  document.getElementById("infoDeleteEventButton").appendChild(btn);
-  changeEvent();
+  
+  if(typeof messagetext == "undefined"){
+    messagetext = document.createElement("input");
+  }
+  if(typeof submit == "undefined"){
+    submit = document.createElement("input");
+  }
+
+  eventid = document.createTextNode(eid);
+  list.id = eventid;
+  list.onsubmit = function(){sendMessage(eventid)};
+  messagetext.placeholder = "Enter message";
+  messagetext.autocomplete = "off";
+  submit.type = "submit";
+
+  document.getElementById("eventchatlist").appendChild(list);
+  document.getElementById("eventchatmessagetext").appendChild(messagetext);
+  document.getElementById("eventchatsubmit").appendChild(submit);
+  changechat();
+
+//  <!-- <ul id="messages--MK6JCqEDYR2_te8fS9u"></ul>
+//           <form onsubmit="return sendMessage('-MK6JCqEDYR2_te8fS9u');">
+//             <input id="message" placeholder="Enter message" autocomplete="off">
+//             <input id="button" type="submit">
+//           </form> -->
+
 }

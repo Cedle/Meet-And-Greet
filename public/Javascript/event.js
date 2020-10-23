@@ -54,8 +54,8 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
         userName = usersData.userName;
         imgUrl = usersData.imgUrl;
       })
-      // deleteMessages(snapshot3.key);
-      // readMessages(snapshot3.key);
+      deleteMessages(snapshot3.key);
+      readMessages(snapshot3.key);
       location =
         {
           id: snapshot3.key,
@@ -84,8 +84,8 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
       userName = usersData.userName;
       imgUrl = usersData.imgUrl;
     })
-    // deleteMessages(snapshot2.key);
-    // readMessages(snapshot2.key);
+    deleteMessages(snapshot2.key);
+    readMessages(snapshot2.key);
     
     location = 
       {
@@ -105,7 +105,31 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
       setEvent(location,"public");
       addMarker(location,imgUrl,0); 
   });
+  //Event anzeigen nach buttondrücken im Home
+  async function showEvent(location){
+    location = JSON.parse(location);
+    console.log(location['imgUrl']);
+    document.getElementById("infopic").src = await location['imgUrl'];
+    document.getElementById("infohead").textContent = location['title'];
+    document.getElementById("infotime").textContent = location['time'];
+    document.getElementById("infodesc").textContent = location['desc'];
+    
+    if(typeof deletebtn == "undefined"){
+    deletebtn = document.createElement("button");
+    }
+    deletebtn.className = "infoDeleteEventButtonDesign";
+    deletebtn.onclick = function() {deleteEvent(allData.uuid,location['host'],location['id'])};
+    document.getElementById("infoDeleteEventButton").appendChild(deletebtn);
 
+    if(typeof chatbtn == "undefined"){
+    chatbtn = document.createElement("button");
+    }
+    chatbtn.className = "infoChatButtonDesingn";
+    chatbtn.oncklick = function() {createEventChat(location['id'])};
+    document.getElementById("infoChatButton").appendChild(chatbtn);
+    changeEvent();
+
+  }
 //Events löschen
 function deleteEvent(uuid,eventhost,eventid){
   if(uuid === eventhost){

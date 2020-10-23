@@ -104,6 +104,7 @@ i{
 }
 .active{
   background-color: #FFA500;
+  text-decoration-color: white;
 }
 .Picture{
   z-index: 2;
@@ -184,16 +185,16 @@ i{
     margin-left: 2.5vw;
   }
 
-  #eventdesc{
-    border-color:rgb(0, 0, 0);
-    background: rgb(255, 255, 255);
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-    height: 15vh;
-    
+  .Eventdesc{
+    padding-left: 1vw;
+    white-space: nowrap;
+    overflow: hidden;
+    word-break: break-all;
+    height: 10vh;
+    line-break: strict;
+    word-wrap: break-word;
   }
+
   #map2{
     border-color:rgb(0, 0, 0);
     background: rgb(255, 255, 255);
@@ -405,7 +406,7 @@ i{
     #messages{
       margin: 0em;
       padding: 0em;
-      width: 100%;
+      width: 60%;
       margin-bottom: 8vh;
       
     }
@@ -415,7 +416,7 @@ i{
       padding: 2vw;
       margin: 2vw;
       list-style: none;
-      width: 80%;
+      width: 60%;
       display: block;
       border-radius: 30px;
       font-size: 3vw;
@@ -432,7 +433,7 @@ i{
     #message{
       word-break: break-all;
       min-height: 3vh;
-      width: 70vw;
+      width: 60%;
       border: 0em;
       padding-left: 4vw;
       padding-right: 4vw;
@@ -444,16 +445,33 @@ i{
     }
   
     #button{
-      height: 7vw;
+      height: 7vw;  
       border-radius: 50%;
       z-index: 1;
       width: 20vw;
       font-size: 3vw;
       right: 0em;
     }
+    
+    /* Friends */
+    #friends{
+      display: inline-block;
+      width: 100%;
   
-  
-  
+    }
+
+    #friends form{
+      background-color: #484848;
+      width: 100vw;
+      padding: 0em;
+      margin: 0em;
+      position: fixed;
+      bottom: 0vh;
+      padding-top: 1vh;
+    }
+
+
+ 
     /* Profil */
   
     #profilhead{
@@ -473,6 +491,7 @@ i{
       height: 20%;
       width: 100%;
       text-align: center;
+      margin-bottom: 2vh;
     }
     #img{
       display:inline-block;
@@ -485,23 +504,21 @@ i{
       text-align: center;
     }
     
-  
-  
     #changePicture{
       display: grid;
       grid-template-columns: 1fr;
-      height: 5%;
+      height: 5vh;
       width: 20%;
       padding: 0em;
       margin-left: auto;
       margin-right: auto;
-      border-radius: 25px;
-      font-size: 3vw;
-      font-family: oswald;
-      background-color: #478ac9;
+      border-radius: 10px;
+      font-size: 15px;
+      background-color: #ff6547;
       color:white;
       text-align: center;
     }
+
     #changePicture div{
       padding: 0em;
       margin: 0em;
@@ -516,57 +533,55 @@ i{
       opacity: 0;
       height: 100%;
       width: 100%;
+      
     }
-    #name{
-      border-radius: 25px;
-      border-width: 5px;
+    #userName{
       border-color:rgb(0, 0, 0);
       background: rgb(255, 255, 255);
-      width: 60%;
-      margin-left: auto;
-      margin-right: auto;
-      height: 5%;
-      margin-top: 15%;
       padding: 0em;
       font-size: 3vw;
-      font-family: oswald;
-      display:inline-block;
+      text-align: center;
+      width: 70%;
+      height: 5vh;
+      padding: 0;
+      font-size: 15px;
+      display: block; 
+      margin-left: auto;
+      margin-right: auto;
       text-align: center;
     }
     #bio{
-      border-radius: 25px;
-      border-width: 5px;
       border-color:rgb(0, 0, 0);
       background: rgb(255, 255, 255);
-      width: 60%;
+      width: 70%;
       margin-left: auto;
       margin-right: auto;
       height: 10vh;
-      font-size: 3vw;
-      font-family: oswald;
+      font-size: 15px;
       display:inline-block;
       text-align: center;
     }
-    #changeUserInfo{
-      border-radius: 25px;
-      padding: 2%; 
-      width: 60%;
+    #changeUserInfo{ 
+      border-radius: 10px;
+      width: 30%;
       margin-left: auto;
       margin-right: auto;
-      height: 10%;
+      height: 5vh;
       display: block;
-      font-size: 50px;
-      background-color: #478ac9;
-      font-family: oswald;
+      font-size: 15px;
+      background-color: #ff6547;
       color:white;
       display:inline-block;
       text-align: center;
+      margin-top: 2vh;
+      margin-bottom: 2vh;
     }
   #neu{
     display: block;
     margin-left: auto;
     margin-right: auto;
   }
+  
 /*
 
 @media (orientation:portrait){
@@ -1120,4 +1135,3 @@ i{
   }
 }
 */
-  }

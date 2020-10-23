@@ -1,13 +1,13 @@
 let file = {};
 
 function updateProfil(){
-    document.getElementById("name").textContent = allData.userName;
+    document.getElementById("userName").textContent = allData.userName;
     document.getElementById("bio").textContent = allData.bio;
 }
   
 function changeUserInfo(){
     changedData= {
-      "userName": document.getElementById("name").value,
+      "userName": document.getElementById("userName").value,
       "bio": document.getElementById("bio").value,
     }
     $.put("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/user/"+allData.id,changedData,function(){

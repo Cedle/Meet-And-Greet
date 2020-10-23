@@ -67,20 +67,20 @@
         
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#page-top" onclick="changehome()">Home<span class="sr-only">(current)</span></a>
+              <li class="nav-item">
+                <a class="nav-link active" id="nav_home" href="#page-top" onclick="changeHome()">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#page-top" onclick="changemap()">Karte</a>
+                <a class="nav-link" id="nav_map" href="#page-top" onclick="changeMap()">Karte</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#page-top" onclick= "changeneu()">Event erstellen</a>
+                <a class="nav-link" id="nav_neu" href="#page-top" onclick= "changeNeu()">Event erstellen</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#page-top" onclick= "changechat()">Chat</a>
+                <a class="nav-link" id="nav_friends" href="#page-top" onclick= "changeFriends()">Friends</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#page-top" onclick= "changeprofil()">Profil</a>
+                <a class="nav-link" id="nav_profil" href="#page-top" onclick= "changeProfil()">Profil</a>
               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -94,7 +94,7 @@
 
     
       <div class="row" id="untereReihe">
-        <div class="Screen" id="eventinfoview" style="display: none;">           
+          <div class="Screen" id="eventinfoview" style="display: none;">           
             <img id="infopic">
             <br>
             <div id="infohead"></div>
@@ -104,18 +104,23 @@
             <div id ="infodesc"></div>
             <br>
             <div id="infoDeleteEventButton"></div>
-            
-        </div>
-        <div class="Screen" id="home" style="display: inline-block;">
-          <a href="#">
+            <br>
+            <div id="infoChatButton" onclick = "changechat(location)"></div>
+            <!-- <ul id="messages--MK6JCqEDYR2_te8fS9u"></ul>
+            <form onsubmit="return sendMessage('-MK6JCqEDYR2_te8fS9u');">
+            <input id="message" placeholder="Enter message" autocomplete="off">
+            <input id="button" type="submit">
+            </form> -->
+    
+          </div>
+          <div class="Screen" id="home" style="display: inline-block;">
             <h1 id="eventhead">Eventlist</h1>
             <h1 id="Eventtypehead">Private Events</h1>
-            <li id="Eventlistprivate"></li>
+            <div id="Eventlistprivate"></div>
             <h1 id="Eventtypehead">Öffentliche Events</h1>
-            <li id="Eventlistpublic"></li>
-            </div>
-          </a>
-        </div>
+            <div id="Eventlistpublic"></div>
+            
+          </div>
         <div class="Screen" id="map" style="display: none;">
         </div>
 
@@ -164,14 +169,7 @@
                 </select>
                 <div class="overSelect"></div>
               </div>
-              <div id="checkboxes">
-                <label for="one">
-                  <input type="checkbox" id="one" />First checkbox</label>
-                <label for="two">
-                  <input type="checkbox" id="two" />Second checkbox</label>
-                <label for="three">
-                  <input type="checkbox" id="three" />Third checkbox</label>
-               
+              <div id="checkboxes">               
               </div>
             </div>
           </form>
@@ -180,13 +178,26 @@
         </div>
 
         <!--Chat-->
-        <div class="Screen" id="chat" style="display: none;">
-          
-          <ul id="messages"></ul>
-          <form onsubmit="sendMessage();">
-            <input id="message" placeholder="Enter message" autocomplete="off">
-            <input id="button" type="submit">
+        <div class= "Screen" id ="chat" style ="display: none;">
+          <button id= "eventChatHead"></div>
+          <div id= "eventchatlist"></div>
+          <br>
+          <div id = "eventchatmessagetext"></div>
+          <br>
+          <div id = "eventchatsubmit"></div>
+        </div>
+        <!-- Friends -->
+        <div class="Screen" id="friends" style="display: none;">
+        
+
+          <ul id="friends_constainer"></ul>
+
+          <form onsubmit="return searchFriends();">
+            <input id="name" placeholder="Enter Name" autocomplete="off">
+            <input type="submit" id="button">
           </form>
+
+
         </div>
         <div class="Screen" id="profil" style="display: none;">
           <h1 id="profilhead">Profil</h1>
@@ -198,8 +209,10 @@
            <input id="hiddenButton" onchange="chooseFile(event)" type="file">
           </div>
           <br>
-          <textarea maxlength="21" name="name" id="name" cols="40" rows="1"></textarea>
+          <h1 id="eventsubheads">Name:</h1>
+          <textarea maxlength="21" name="userName" id="userName" cols="40" rows="1"></textarea>
           <br>
+          <h1 id="eventsubheads">Biografie:</h1>
           <textarea maxlength="150" name="Bio" id="bio" cols="30" rows="10"></textarea>
           <br>
           <button onclick="changeUserInfo()" type="button" id="changeUserInfo" >Änderungen speichern</button>
