@@ -24,13 +24,40 @@ function searchFriends(){
     return false;
 }
 function addFriend(uuid){
-    firebase.database().ref("friends/"+allData.uuid).push().set({
+    firebase.database().ref("friends/"+allData.uuid+"/requested").push().set({
+        "uuid": uuid,
+        "accepted": false
+    })
+    firebase.database().ref("friends/"+uuid+"/pending").push().set({
+        "uuid": allData.uuid
+    })
+}
+function acceptFriend(uuid,ownid,friendid){
+    firebase.database().ref("friends/"+allData.uuid+"/pending").child(ownid).remove();
+
+    firebase.database().ref("friends/"+uuid+"/requested/"+friendid).set({
+        "uuid": allData.uuid,
+        "accepted": true
+    });
+    firebase.database().ref("friends/"+allData.uuid+"/added").push().set({
         "uuid": uuid
     })
 }
+function declineFriend(uuid,ownid,friendid){
+    firebase.database().ref("friends/"+allData.uuid+"/pending").child(ownid).remove();
 
+    firebase.database().ref("friends/"+uuid+"/requested").child(friendid).remove();
+}
 
-firebase.database().ref("friends/"+allData.uuid).on("child_added", async function (snapshot) {
+function deleteFriend(uuid,ownid){
+    firebase.database().ref("friends/"+allData.uuid+"/added").child(ownid).remove();
+
+    firebase.database().ref("friends/"+uuid+"/deleted").push().set({
+        "uuid": allData.uuid
+    })
+}
+
+firebase.database().ref("friends/"+allData.uuid+"/added").on("child_added", async function (snapshot) {
     var html = "";
     var friend;
     console.log(snapshot);
@@ -42,6 +69,35 @@ firebase.database().ref("friends/"+allData.uuid).on("child_added", async functio
     html += "<input type='checkbox' id='"+snapshot.val().uuid+"' />" + friend.userName + "</label>";
     document.getElementById("checkboxes").innerHTML += html;
     console.log(html);
-
-
 })
+
+firebase.database().ref("friends/"+allData.uuid+"/requested").on("child_added", async function (snapshot) {
+    var html ="";
+    var friend;
+    await $.getJSON("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/friends/" + snapshot.val().uuid ,async function(result){
+        friend = await result;
+        console.log("friend = "+ friend);
+    })
+    html += "<label for='"+snapshot.val().uuid+"'>"
+    html += "<input type='checkbox' id='"+snapshot.val().uuid+"' />" + friend.userName + "</label>";
+    document.getElementById("friendrequests").innerHTML += html;
+    console.log(html);
+})
+
+
+
+firebase.database().ref("friends/"+allData.uuid+"/pending").on("child_added", async function (snapshot) {
+    var html ="";
+    var friend;
+    await $.getJSON("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/friends/" + snapshot.val().uuid ,async function(result){
+        friend = await result;
+        console.log("friend = "+ friend);
+    })
+    html += "<label for='"+snapshot.val().uuid+"'>"
+    html += "<input type='checkbox' id='"+snapshot.val().uuid+"' />" + friend.userName + "</label>";
+    document.getElementById("friendpending").innerHTML += html;
+    console.log(html);
+})
+
+
+

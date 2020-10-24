@@ -1,3 +1,6 @@
+let readWrite;
+
+
 // Eventdaten bekommen und eintragen
 function setEvent(location,type){
   let btn= document.createElement("button");
@@ -11,10 +14,9 @@ function setEvent(location,type){
   let content2 = document.createTextNode(location['name']);
   let content3 = document.createTextNode(location['desc']);
   let content4 = document.createTextNode(location['time']);
-  let content5 = document.createTextNode(location['id']);
   let locationstring = JSON.stringify(location);
 
-  btn.id = content5;
+  btn.id = location['id'];
   btn.className = "Eventlistprivatedesign";
   div1.className = "Eventpicture";
   div2.className = "Eventdesc";
@@ -39,37 +41,51 @@ function setEvent(location,type){
 } 
 
 async function createEventChat(title,eid,locationstring){
-  
-  document.getElementById("eventChatHead").innerHTML= String(title);
-  document.getElementById("eventChatHead").onclick = function() {showEvent(locationstring);};
-  
-  if(typeof list == "undefined"){
-    list = document.createElement("ul");
-  }
-  
-  if(typeof messagetext == "undefined"){
-    messagetext = document.createElement("input");
-  }
-  if(typeof submit == "undefined"){
-    submit = document.createElement("input");
-  }
 
-  eventid = document.createTextNode(eid);
-  list.id = eventid;
-  list.onsubmit = function(){sendMessage(eventid)};
-  messagetext.placeholder = "Enter message";
-  messagetext.autocomplete = "off";
-  submit.type = "submit";
+  var html = "";
+  html += "<button id='eventChatHead'>"+title+"</button>"
+  html += "<ul id='messages-"+eid+"'></ul>"
+  html += "<form onsubmit='return sendMessage("+'"'+eid+'"'+");'>"
+  html += "<input id='message' placeholer='Enter message' autocomplete='off'>"
+  html += "<input id='button' type='submit'>"
+  html += "</form>"
 
-  document.getElementById("eventchatlist").appendChild(list);
-  document.getElementById("eventchatmessagetext").appendChild(messagetext);
-  document.getElementById("eventchatsubmit").appendChild(submit);
+  document.getElementById("chat").innerHTML =  html;
+  document.getElementById("eventChatHead").onclick = function(){showEvent(locationstring)};
+  var check = true;
+  // delete readWrite.read;
+  // delete readWrite.delete;
+  // readWrite = null;
+  
+  try {
+    disable(readWrite.eid,readWrite.delete,readWrite.read);
+    console.log(readWrite.eid);
+  } catch (error) {
+    console.log("init");
+    
+  }
+  readWrite = new MakeReadDelete(eid);
+  
+  
+  // for (let i = 0; i < readWrite.length; i++) {
+  //   const element = readWrite[i];
+  //   if(element.eid === eid){
+  //     check = false;
+  //   }
+  // }
+  // if(check){
+  //   readWrite.push(new MakeReadDelete(eid));
+  // }
+  // console.log(readWrite.length);
+
+  // readWrite = jQuery.unique(readWrite);
+
+  console.log(readWrite);
+
+
   changechat();
 
-//  <!-- <ul id="messages--MK6JCqEDYR2_te8fS9u"></ul>
-//           <form onsubmit="return sendMessage('-MK6JCqEDYR2_te8fS9u');">
-//             <input id="message" placeholder="Enter message" autocomplete="off">
-//             <input id="button" type="submit">
-//           </form> -->
+
+
 
 }

@@ -20,25 +20,34 @@ function sendMessage(id){
     firebase.database().ref("messages/" + eventId).child(messageId).remove();
   }
   
-function readMessages(id){  
-
-return new firebase.database().ref("messages/"+id).on("child_added", function (snapshot) {
-    console.log("write");
-    var html = "";
-    html += "<li id='message-" + id + snapshot.key + "'>";
+class MakeReadDelete {
+  constructor(id) {
+    this.eid = id;
+    this.read = firebase.database().ref("messages/" + id).on("child_added", function (snapshot) {
+      console.log("write");
+      var html = "";
+      html += "<li id='message-" + id + snapshot.key + "'>";
       if (snapshot.val().uuid == allData.uuid) {
         html += "<button event-id='" + id + "'  data-id='" + snapshot.key + "' onclick='deleteMessage(this);'>";
-          html += "Delete";
+        html += "Delete";
         html += "</button>";
       }
       html += snapshot.val().sender + ": " + snapshot.val().message;
-    html += "</li>";
-  
-    document.getElementById("messages-"+id).innerHTML += html;
-  }) 
+      html += "</li>";
+
+      document.getElementById("messages-" + id).innerHTML += html;
+      return self;
+    });
+
+    this.delete = firebase.database().ref("messages/" + id).on("child_removed", function (snapshot) {
+      document.getElementById("message-" + id + snapshot.key).innerHTML = "this message has been removed";
+      return self;
+    });
+  }
 }
-function deleteMessages(id){
-return new firebase.database().ref("messages/"+id).on("child_removed", function(snapshot) {
-    document.getElementById("message-"+ id + snapshot.key).innerHTML = "this message has been removed"
-  })
+
+
+function disable(id,refdel,refread){
+  firebase.database().ref("messages/" + id).off("child_added", refread );
+  firebase.database().ref("messages/" + id).off("child_removed", refdel );
 }

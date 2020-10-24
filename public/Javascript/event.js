@@ -54,8 +54,8 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
         userName = usersData.userName;
         imgUrl = usersData.imgUrl;
       })
-      deleteMessages(snapshot3.key);
-      readMessages(snapshot3.key);
+      // deleteMessages(snapshot3.key);
+      // readMessages(snapshot3.key);
       location =
         {
           id: snapshot3.key,
@@ -84,8 +84,8 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
       userName = usersData.userName;
       imgUrl = usersData.imgUrl;
     })
-    deleteMessages(snapshot2.key);
-    readMessages(snapshot2.key);
+    // deleteMessages(snapshot2.key);
+    // readMessages(snapshot2.key);
     
     location = 
       {
@@ -105,9 +105,10 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
       setEvent(location,"public");
       addMarker(location,imgUrl,0); 
   });
-  //Event anzeigen nach buttondrücken im Home
+  //Event auf Karte anzeigen nach buttondrücken im Home
   async function showEvent(location){
     location = JSON.parse(location);
+    console.log("er kommt so weit");
     console.log(location['imgUrl']);
     document.getElementById("infopic").src = await location['imgUrl'];
     document.getElementById("infohead").textContent = location['title'];
@@ -118,38 +119,27 @@ function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatetime) {
     deletebtn = document.createElement("button");
     }
     deletebtn.className = "infoDeleteEventButtonDesign";
-    deletebtn.onclick = function() {deleteEvent(allData.uuid,location['host'],location['id'])};
+    deletebtn.onclick = function() {deleteEvent(location['host'],location['id'])};
     document.getElementById("infoDeleteEventButton").appendChild(deletebtn);
 
-    if(typeof chatbtn == "undefined"){
-    chatbtn = document.createElement("button");
-    }
-    chatbtn.className = "infoChatButtonDesingn";
-    chatbtn.oncklick = function() {createEventChat(location['id'])};
-    document.getElementById("infoChatButton").appendChild(chatbtn);
+    
     changeEvent();
 
   }
 //Events löschen
-function deleteEvent(uuid,eventhost,eventid){
-  if(uuid === eventhost){
-    try{
-      firebase.database().ref("events/private/"+uuid).child(eventid).remove();
-          document.getElementById(eventid).value = null;
-    }catch{
-      console.log("kein privates event mit Bezeichner gefunden");
-    }
-    try{
+function deleteEvent(eventhost,eventid){
+  if(allData.uuid === eventhost){
+      firebase.database().ref("events/private/"+allData.uuid).child(eventid).remove();
       firebase.database().ref("events/public").child(eventid).remove();
-      document.getElementById(eventid).innerHTML = null;
-    }catch{
-      console.log("kein privates event mit Bezeichner gefunden");
-      console.log("löschen erfolglos");
-    }
+      
   }
 }
-// function deleteEventEntry(){
-//   return new firebase.database().ref("events/private/"+allData.uuid).on("child_removed", function(snapshot) {
-//     document.getElementById(eventid).innerHTML = "this message has been removed"
-//   })
-// }
+firebase.database().ref("events/private/"+allData.uuid).on("child_removed", function(snapshot) {
+  document.getElementById(snapshot.key).innerHTML = "this Event has been removed";
+  document.getElementById(snapshot.key).onclick = "";
+})
+
+firebase.database().ref("events/public").on("child_removed", function(snapshot) {
+  document.getElementById(snapshot.key).innerHTML = "this Event has been removed";
+  document.getElementById(snapshot.key).onclick = "";
+})

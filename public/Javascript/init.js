@@ -34,26 +34,27 @@ firebase.auth().onAuthStateChanged( async function(user){
     $.getScript("./Javascript/chat.js", function(){
     
     });
-    $.getScript("./Javascript/home.js", function(){
-      
-    });
+    
     $.getScript("./Javascript/profile.js", function(){
       
     });
     $.getScript("./Javascript/uiOnChange.js", function(){
       
     });
-    
     await $.getScript("./Javascript/map.js", function(){
       
     });
-    await $.getScript("./Javascript/friends.js", function(){
+    await $.getScript("./Javascript/home.js", function(){
       
     });
+    
     await $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCcaSqSolT95GBxvo0TEmaKzZ5m0fEt088&callback=initAutocomplete&libraries=places&v=weekly", function(){
       
     });
     await $.getScript("./Javascript/event.js", function(){
+      
+    });
+    await $.getScript("./Javascript/friends.js", function(){
       
     });
     
