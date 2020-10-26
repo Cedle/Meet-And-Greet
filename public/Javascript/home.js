@@ -15,8 +15,11 @@ function setEvent(location,type){
   let content3 = document.createTextNode(location['desc']);
   let content4 = document.createTextNode(location['time']);
   let locationstring = JSON.stringify(location);
-
-  btn.id = location['id'];
+  if(type == "private"){
+    btn.id = location['host']+"/"+location['id'];
+  }else{
+    btn.id = location['id'];
+  }
   btn.className = "Eventlistprivatedesign";
   div1.className = "Eventpicture";
   div2.className = "Eventdesc";
@@ -43,9 +46,9 @@ function setEvent(location,type){
 async function createEventChat(title,eid,locationstring){
 
   var html = "";
-  html += "<button id='eventChatHead'>"+title+"</button>"
-  html += "<ul id='messages-"+eid+"'></ul>"
-  html += "<form onsubmit='return sendMessage("+'"'+eid+'"'+");'>"
+  html += "<button id='eventChatHead'></button>"
+  html += "<ul class='chatList' id='messages-"+eid+"'></ul>"
+  html += "<form class='chatFooter' onsubmit='return sendMessage("+'"'+eid+'"'+");'>"
   html += "<input id='message' placeholer='Enter message' autocomplete='off'>"
   html += "<input id='button' type='submit'>"
   html += "</form>"

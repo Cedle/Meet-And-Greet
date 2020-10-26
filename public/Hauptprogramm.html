@@ -72,30 +72,26 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link active" id="nav_home" href="#page-top" onclick="changeHome()">Home</a>
+                <a class="nav-link js-scroll-trigger active" id="nav_home" href="#page-top"  onclick="changeHome()">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="nav_map" href="#page-top" onclick="changeMap()">Karte</a>
+                <a class="nav-link js-scroll-trigger" id="nav_map" href="#page-top"  onclick="changeMap()">Karte</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="nav_neu" href="#page-top" onclick= "changeNeu()">Event erstellen</a>
+                <a class="nav-link js-scroll-trigger" id="nav_neu" href="#page-top"  onclick= "changeNeu()">Event erstellen</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="nav_friends" href="#page-top" onclick= "changeFriends()">Friends</a>
+                <a class="nav-link js-scroll-trigger" id="nav_friends" href="#page-top"  onclick= "changeFriends()">Freunde</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="nav_profil" href="#page-top" onclick= "changeProfil()">Profil</a>
+                <a class="nav-link js-scroll-trigger" id="nav_profil" href="#page-top"  onclick= "changeProfil()">Profil</a>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
           </div>
         </nav>  
       </div>
       <!-- Nav-Bar Ende-->
-
+      
     
       <div class="row" id="untereReihe">
           <div class="Screen" id="eventinfoview" style="display: none;">           
@@ -103,8 +99,16 @@
             <br>
             <div id="infohead"></div>
             <br>
+            <hr class="seperator">
+            <h1 id="eventsubheads">Veranstalter:</h1>
+            <div id="infomanager"></div>
+            </br>
+            <hr class="seperator">
+            <h1 id="eventsubheads">Datum:</h1>
             <div id="infotime"></div>
-            <br>
+            </br>
+            <hr class="seperator">
+            <h1 id="eventsubheads">Information/Beschreibung:</h1>
             <div id ="infodesc"></div>
             <br>
             <div id="infoDeleteEventButton"></div>
@@ -129,12 +133,11 @@
 
         <!--Event erstellen-->
         <div class="Screen" id="neu" style="display: none;">
-          <img src="./Bilder/MeetandGreetLogo.png"  id="meetlogo"/>
           <h1 id="eventhead">Event anlegen</h1>
           <h1 id="eventsubheads">Eventname:</h1>
             <textarea id="eventtitle" cols="40" rows="1"></textarea>
           <br>
-          <h1 id="eventsubheads">Eventdatum und Eventzeit festlegen:</h1>
+          <h1 id="eventsubheads">Eventdatum und Eventzeit:</h1>
             <input type="datetime-local" id="eventtime" value="2020-10-10T19:00">
           <br>
           <h1 id="eventsubheads">Eventbeschreibung:</h1>
@@ -143,17 +146,7 @@
           <h1 id="eventsubheads">Eventort:</h1>
             <div id="map2" class="eventmap"></div>
           <br>
-          <!--Alte Radio Buttons für Eventsichtbarkeit
 
-            h1 id="eventsubheads">Eventsichtbarkeit:</h1>
-          <input type="radio" id="private" name="eventtype" value="private">Privat
-          
-          <br>
-            <input type="radio" id="public" name="eventtype" value="public"/>Öffentlich;
-          <br>
-          -->
-
-          <!--Dropdown Öffentlich Privat Beginn-->
           <div class="input-group mb-3" id="eventVisibility">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Eventsichtbarkeit</label>
@@ -182,7 +175,7 @@
             <div class="multiselect">
               <div class="selectBox" onclick="showCheckboxes()">
                 <select>
-                  <option>Select an option</option>
+                  <option>Wählen Sie Ihre Freunde aus</option>
                 </select>
                 <div class="overSelect"></div>
               </div>
@@ -195,31 +188,43 @@
         </div>
 
         <!--Chat-->
-        <div class= "Screen" id ="chat" style ="display: none;">
-          <button id= "eventChatHead"></div>
+        <div class= "Screen" id ="chat" style ="display: none;">       
+          <button id= "eventChatHead">Eventinformationen</button>
           <div id= "eventchatlist"></div>
           <br>
+          <div>
           <div id = "eventchatmessagetext"></div>
           <br>
           <div id = "eventchatsubmit"></div>
+          </div>
         </div>
+        
         <!-- Friends -->
         <div class="Screen" id="friends" style="display: none;">
+          <h1 id="eventhead">Freunde</h1>
+          <div id="inquiry">Anfragen:</div>
+          <br>
+          <div id="myInquiry">Meine Anfragen: </div>
+          <br>
+          <div id="currentFriends">Freunde:</div>
+          <br>
+          <div id="searchForFriends"></div>
           <ul id="friends_constainer"></ul>
           <form onsubmit="return searchFriends();">
-            <input id="name" placeholder="Enter Name" autocomplete="off">
-            <input type="submit" id="button">
+            <div id = "friendSearch">
+            <input id="name" placeholder="Search friend" autocomplete="off">
+            <input type="submit" id="searchFriendButton" value="Suchen">
+            </div>
           </form>
         </div>
         <!-- Profil-->
         <div class="Screen" id="profil" style="display: none;">
-          <img src="./Bilder/MeetandGreetLogo.png"  id="meetlogo"/>
-          <h1 id="profilhead">Profil</h1>
+          <h1 id="eventhead">Profil</h1>
           <br>
-          <div id="imgdiv"><img id="img" src="./Bilder/profilepicture.jpg" alt="Profilepicture"></div>         
+          <div id="imgdiv"><img id="img" src="./Bilder/profilepicture.jpg" alt="Profilepicture"></div>
           <br>
           <div id="changePicture">
-            <div>neues Bild</div>
+            <div id="newProfileDiv">Neues Profilbild</div>
            <input id="hiddenButton" onchange="chooseFile(event)" type="file">
           </div>
           <br>
@@ -273,6 +278,12 @@
       createOptions(4000);
       
       </script> -->
+      <script type="text/javascript">    
+        $('.js-scroll-trigger').click(function() {
+         $('.navbar-collapse').collapse('hide');
+        });
+   </script>
+
   </body>
   
 </html>

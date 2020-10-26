@@ -1,24 +1,31 @@
 
-
-function sendMessage(id){
-    // id = self.getAttribute("data-id");
-    // console.log("id =" + id);
+  function sendMessage(id){
     var message = document.getElementById("message").value;
-    // console.log("message = "+ message);
-    firebase.database().ref("messages/"+id).push().set({
-      "sender": allData.userName,
-      "message": message,
-      "uuid": allData.uuid
+    
+    var data ={
+      sender: allData.userName,
+      message: message,
+      uuid: allData.uuid,
+      id : id
+    }
+    $.post("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/chatservice/sendMessage",data,function(){
     });
-    // console.log("message = "+ message);
     document.getElementById("message").value = "";
     return false;
   }
+
   function deleteMessage(self){
-    var messageId = self.getAttribute("data-id");
-    var eventId = self.getAttribute("event-id");
-    firebase.database().ref("messages/" + eventId).child(messageId).remove();
+    messageId = self.getAttribute("data-id");
+    eventId = self.getAttribute("event-id");
+    var data ={
+      messageId : messageId,
+      eventId : eventId
+    }
+    $.delete("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/chatservice/deleteMessage",data,function(){
+    });
+    
   }
+
   
 class MakeReadDelete {
   constructor(id) {
@@ -26,13 +33,13 @@ class MakeReadDelete {
     this.read = firebase.database().ref("messages/" + id).on("child_added", function (snapshot) {
       console.log("write");
       var html = "";
-      html += "<li id='message-" + id + snapshot.key + "'>";
+      html += "<li id='message-" + id + snapshot.key + "'><div id='messagebutton'>";
       if (snapshot.val().uuid == allData.uuid) {
         html += "<button event-id='" + id + "'  data-id='" + snapshot.key + "' onclick='deleteMessage(this);'>";
         html += "Delete";
         html += "</button>";
       }
-      html += snapshot.val().sender + ": " + snapshot.val().message;
+      html += "</div><div><div id='sender'>"+snapshot.val().sender + ":</div><div id='messagecontent'> " + snapshot.val().message+"</div></div>";
       html += "</li>";
 
       document.getElementById("messages-" + id).innerHTML += html;

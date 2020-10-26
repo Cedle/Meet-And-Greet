@@ -9,6 +9,7 @@ function changeEvent(){
     document.getElementById("friends").style.display = 'none';
 }
 function changechat(){
+   
     document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'none';
     document.getElementById("map").style.display = 'none'; 
@@ -24,7 +25,7 @@ function changeMap(){
         $(".active").removeClass("active");
         $("#nav_map").addClass("active");
      });
-    
+  
     document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'none';
     document.getElementById("map").style.display = 'inline-block'; 
@@ -40,7 +41,7 @@ function changeHome(){
         $(".active").removeClass("active");
         $("#nav_home").addClass("active");
      });
-    
+   
     document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'inline-block';
     document.getElementById("map").style.display = 'none';
@@ -56,6 +57,7 @@ function changeNeu(){
         $(".active").removeClass("active");
         $("#nav_neu").addClass("active");
      });
+    
     // document.getElementById("nav_neu").style.color = "$navbar-dark-active-color";
     document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'none';
@@ -72,6 +74,7 @@ function changeFriends(){
         $(".active").removeClass("active");
         $("#nav_friends").addClass("active");
      });
+   
     // document.getElementById("nav_chat").style.color = "$navbar-dark-active-color";
     document.getElementById("eventinfoview").style.display = 'none';
     document.getElementById("home").style.display = 'none';

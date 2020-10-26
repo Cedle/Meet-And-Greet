@@ -4,11 +4,13 @@ let infowindow;
 let postition;
 let pos;
 let marker2;
+let debug = [];
 
-
-function CustomMarker(latlng, map, imageSrc) {
+function CustomMarker(latlng, map, imageSrc, vis,id) {
     this.latlng_ = latlng;
     this.imageSrc = imageSrc;
+    this.vis = vis;
+    this.id = id;
     // Once the LatLng and text are set, add the overlay to the map.  This will
     // trigger a call to panes_changed which should in turn call draw.
     this.setMap(map);
@@ -25,8 +27,12 @@ function initAutocomplete() {
         // Create a overlay text DIV
         div = this.div_ = document.createElement('div');
         // Create the DIV representing our CustomMarker
+        div.setAttribute("id","marker"+this.id );
         div.className = "customMarker"
-
+        debug.push(this.vis);
+        if(this.vis == 1){
+            div.style.backgroundColor = "red";
+        }
 
         var img = document.createElement("img");
         img.src = this.imageSrc;
@@ -114,41 +120,39 @@ function initAutocomplete() {
   })
 
 
-	infowindow		=	new google.maps.InfoWindow();
+	infowindow		=	new google.maps.InfoWindow({
+    });
 	
     
 	map2.addListener("click", (mapsMouseEvent) => {
 		//Close the current InfoWindow.
         postition = mapsMouseEvent.latLng.toJSON();
         
-        addMarker(postition,image,1);
+        addMarker(postition,image,1,0);
 	});
 }
 
-function addMarker(location,image,type){
+function addMarker(location,image,type,visibility){
     if(type == 0){
-        var icon = {
-            url: image, // url
-            scaledSize: new google.maps.Size(50, 50), // scaled size
-            origin: new google.maps.Point(0,0), // origin
-            anchor: new google.maps.Point(0, 0) // anchor
-        };
+        console.log(visibility);
+        if(visibility == 1){
+            marker = new CustomMarker(new google.maps.LatLng(location['lat'], location['lng']), map, image,visibility,location['host']+"/"+location['id']);
+        }else{
+            marker = new CustomMarker(new google.maps.LatLng(location['lat'], location['lng']), map, image,visibility,location['id']);
+        }
+        
 
-        marker = new CustomMarker(new google.maps.LatLng(location['lat'], location['lng']), map, image);
-
-
-        // marker = new google.maps.Marker({
-        // position	:	new google.maps.LatLng(location['lat'], location['lng']),
-        // map			:	map,
-        // animation	:	google.maps.Animation.DROP,
-        // icon		:	icon,
-        // });
-        // marker.set("id", "icon");
         
         google.maps.event.addListener(marker, 'click', (function(marker) {
         return function() {
             //infowindow.setContent('<h3>' + location['host'] + "<br>" + location['title'] + '</h3>');
-            infowindow.setContent("<div id='infowindow'><div id='infowindow_pic'>"+location['picture']+"<h1>" + location['title']+'<br>'+'<h3>'+location['time']+'</h3>'+'</h1>'+ "<p>"+ location['name']+"</p></div>"+"<div id='infowindow_text'>" +"<br>"+ "<p cols='20'>"+location['desc']+"</p></div><div>");
+            if(location['host'] == allData.uuid){
+                infowindow.setContent("<div id='infowindow'><div id='infowindow_pic'>"+location['picture']+"<p>"+ location['name']+"</p>"+'</br>'+'<h2>Titel:</h2>'+"<h1>" + location['title']+'<br>'+'</br>'+'<h2>Datum:</h2>'+'<h3>'+location['time']+'</h3>'+'<br>'+'</h1>' +"<div id='infowindow_text'>"+'<h2>Beschreibung:</h2>'+"<br>"+ "<p cols='20'>"+location['desc']+"</p><input id='eventJoinButton' type='button' value='löschen' onclick='deleteEvent("+'"'+location['host']+'"'+","+'"'+location['id']+'"'+","+'"'+location['evisibility']+'"'+");'></div><div>");
+            }else if(location.evisibility == "private"){
+                infowindow.setContent("<div id='infowindow'><div id='infowindow_pic'>"+location['picture']+"<p>"+ location['name']+"</p>"+'</br>'+'<h2>Titel:</h2>'+"<h1>" + location['title']+'<br>'+'</br>'+'<h2>Datum:</h2>'+'<h3>'+location['time']+'</h3>'+'<br>'+'</h1>' +"<div id='infowindow_text'>"+'<h2>Beschreibung:</h2>'+"<br>"+ "<p cols='20'>"+location['desc']+"</p><input id='eventJoinButton' type='button' value='verlassen' onclick='leaveEvent("+'"'+location['host']+'"'+","+'"'+location['id']+'"'+");'></div><div>");
+            }else{
+                infowindow.setContent("<div id='infowindow'><div id='infowindow_pic'>"+location['picture']+"<p>"+ location['name']+"</p>"+'</br>'+'<h2>Titel:</h2>'+"<h1>" + location['title']+'<br>'+'</br>'+'<h2>Datum:</h2>'+'<h3>'+location['time']+'</h3>'+'<br>'+'</h1>' +"<div id='infowindow_text'>"+'<h2>Beschreibung:</h2>'+"<br>"+ "<p cols='20'>"+location['desc']+"</p><input id='eventJoinButton' type='button' value='Beitreten' onclick='joinEvent("+'"'+allData.uuid+'"'+","+'"'+location['id']+'"'+");'></div><div>");
+            }
             infowindow.open(map, marker);
         }
         })(marker));

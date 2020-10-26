@@ -27,6 +27,28 @@ userApp.get('/:name', async(req, res)=> {
     res.status(200).send(result);
   })
 
+  userApp.get('/friend/:uuid', async(req, res)=> {
+    const snapshot = await db.collection('users').get();
+    let userImgUrl;
+    let name;
+    snapshot.forEach(doc => {
+
+      if(doc.data().uuid === req.params.uuid){
+        userImgUrl = doc.data().imgUrl;
+        name = doc.data().userName;
+      }
+  
+      
+    });
+    if(name !== null){
+      if(userImgUrl === ""){
+        userImgUrl = "./Bilder/profilepicture.jpg";
+      }
+      res.status(200).send(JSON.stringify({imgUrl: userImgUrl, userName: name}));
+    }
+  })
+
+
 
 
 
