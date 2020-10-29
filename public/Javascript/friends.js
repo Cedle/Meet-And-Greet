@@ -3,15 +3,19 @@ function searchFriends(){
 
     var name = document.getElementById("name").value;
     var searchResult;
-    $.getJSON("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/friendsearch/" + name ,function(result){
+    var img;
+    $.getJSON("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/friendsearch/" + name ,async function(result){
         test = result;
-        console.log(result);
         var html = "";
         for (let i = 1; i < result["results"].length; i++) {
             const element = result["results"][i];
             if(element.uuid !== "placeholder"){
-                html += "<li id='friend-" + element.uuid + "'>";
+                await $.getJSON("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/friendsearch/friend/" + element.uuid ,function(imgres){
+                    img = imgres.imgUrl;
+                })
+                html += "<li class = 'searchResultBullet' id='friend-" + element.uuid + "'>";
                 html += "<div id = 'searchResultBar'>";
+                html += "<img class='searchResultPic' src='"+img+"'></img>";
                 html += "<div id ='searchFriendName'>"+element.name+"</div>";
                 html += "<button class = 'searchFriendButton' onclick='addFriend("+'"'+ element.uuid +'"'+");'>";
                 html += "Add Friend";
@@ -55,9 +59,14 @@ firebase.database().ref("friends/"+allData.uuid+"/added").on("child_added", asyn
     html += "</button>";
     html += "</div>";
     document.getElementById("currentFriends").innerHTML += html;
-    html = "";
-    html += "<input type='checkbox' class='friendbox' id='checkbox"+uuid+"' value='"+uuid+"'><div class='divfriendbox' id='div"+uuid+"'>"+friend.userName+"</div>";
+    html = "<div id=friendSelection>";
+    html += "<input type='checkbox' class='friendCheckbox' id='checkbox"+uuid+"' value='"+uuid+"'><div class='divfriendbox' id='div"+uuid+"'><img src="+friend.imgUrl+" id ='friendImg'></img><div id='friendUsername'>"+friend.userName+"</div></div>";
+    html += "</div>";
     document.getElementById("checkboxes").innerHTML += html;
+    html = "<div id=friendSelection>";
+    html += "<input type='checkbox' class='friendbox' id='checkboxEventInfo"+uuid+"' value='"+uuid+"'><div class='divfriendbox' id='div"+uuid+"'><img src="+friend.imgUrl+" id ='friendImg'></img><div id='friendUsername'>"+friend.userName+"</div></div>";
+    html += "</div>";
+    document.getElementById("checkboxesEventInfo").innerHTML += html;
 })
 
 firebase.database().ref("friends/"+allData.uuid+"/requested").on("child_added", async function (snapshot) {
@@ -111,4 +120,5 @@ firebase.database().ref("friends/"+allData.uuid+"/added").on("child_removed", as
     document.getElementById("added"+uuid).outerHTML = "";
     document.getElementById("div"+uuid).outerHTML = "";
     document.getElementById("checkbox"+uuid).outerHTML = "";
+    document.getElementById("checkboxEventInfo"+uuid).outerHTML = "";
 });

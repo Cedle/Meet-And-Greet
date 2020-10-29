@@ -46,11 +46,14 @@ function setEvent(location,type){
 async function createEventChat(title,eid,locationstring){
 
   var html = "";
-  html += "<button id='eventChatHead'></button>"
+  html += "<button class='backButton' onclick='changeHome()'>&#8249;</button>"
+  html += "<button id='eventChatHead'>Eventinformationen</button>"
   html += "<ul class='chatList' id='messages-"+eid+"'></ul>"
   html += "<form class='chatFooter' onsubmit='return sendMessage("+'"'+eid+'"'+");'>"
+  html += "<div id='messageButtonBar'>"
   html += "<input id='message' placeholer='Enter message' autocomplete='off'>"
   html += "<input id='button' type='submit'>"
+  html += "</div>"
   html += "</form>"
 
   document.getElementById("chat").innerHTML =  html;

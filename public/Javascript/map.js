@@ -5,6 +5,7 @@ let postition;
 let pos;
 let marker2;
 let debug = [];
+let marker3;
 
 function CustomMarker(latlng, map, imageSrc, vis,id) {
     this.latlng_ = latlng;
@@ -32,6 +33,12 @@ function initAutocomplete() {
         debug.push(this.vis);
         if(this.vis == 1){
             div.style.backgroundColor = "red";
+        }else if(this.vis == 2){
+            div.style.backgroundColor = "green";
+        }else if(this.vis == 3){
+            // div.appendChild(document.createElement("a").setAttribute("href","https://www.google.com/maps/search/?api=1&query="+this.latlng_.lat+","+this.latlng_.lng))
+        }else{
+            div.style.backgroundColor = "#1c86ee";
         }
 
         var img = document.createElement("img");
@@ -79,7 +86,8 @@ function initAutocomplete() {
 	
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
     map2 = new google.maps.Map(document.getElementById('map2'),mapOptions);
-    
+    map3 = new google.maps.Map(document.getElementById('map3'),mapOptions);
+
 
     // const input = document.getElementById("pac-input");
     // const searchBox = new google.maps.places.SearchBox(input);
@@ -175,6 +183,19 @@ function addMarker(location,image,type,visibility){
 				scaledSize  :   new google.maps.Size(200, 200)
             });
         }
+    }else if(type == 2){
+        pos = new google.maps.LatLng(location['lat'], location['lng']);
+        
+          map3.setCenter(pos);
+        if (marker3){
+            console.log(visibility);
+            marker3.setMap(null);
+            marker3 = new CustomMarker(new google.maps.LatLng(location['lat'], location['lng']), map3, image,3,"eventMarker");
+        }else{
+            console.log(visibility);
+            marker3 = new CustomMarker(new google.maps.LatLng(location['lat'], location['lng']), map3, image,3,"eventMarker");
+        }
     }
+    
 }
 

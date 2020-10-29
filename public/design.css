@@ -230,13 +230,14 @@ i{
   }
 
   .Eventdesc{
-    padding-left: 1vw;
     white-space: nowrap;
     overflow: hidden;
     word-break: break-all;
     height: 10vh;
     line-break: strict;
     word-wrap: break-word;
+    padding-right: 9vh;
+    padding-top: 2vh;
   }
   #eventdesc{
     border-color:rgb(0, 0, 0);
@@ -325,7 +326,7 @@ i{
   
   .selectBox{
     position: relative;
-    height: 5vh;
+    height: auto;
   }
   
   .selectBox select {
@@ -347,6 +348,9 @@ i{
     border: 1px #dadada solid;
     margin-left: auto;
     margin-right: auto;
+    max-height: 20vh;
+    overflow:overlay;
+    border-top: 0px;
   }
   
   #checkboxes label {
@@ -527,6 +531,38 @@ i{
     color: white;
     text-align: left;
   }
+  #friendSelection{
+    height: 10vh;
+    background : white;
+  }
+  #friendSelection input{
+    float:left;
+    margin-top: 3.5vh;
+    margin-left: 1vw;
+  }
+  .friendCheckbox{
+    float: left;
+    margin-left: auto;
+    margin: auto;
+  }
+  #friendImg{
+    object-fit: cover;
+    border-radius: 50%;
+    border-style: solid;
+    height: 7vh;
+    width: 7vh;
+    text-align: left;
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+  }
+  #friendUsername{
+    display: inline-block;
+    color: black;
+    font-size: 20px;
+    min-width: 30%;
+  }
   
   #submitevent{
     border-radius: 10px;
@@ -551,11 +587,17 @@ i{
     }
   
     #messages{
-      margin: 0em;
+      /* margin: 0em;
       padding: 0em;
       width: 60%;
-      margin-bottom: 8vh;
-      
+      margin-bottom: 8vh; */
+      word-break: break-all;
+      height: 5vh;
+      width: 79%;
+      font-size: 20px;
+      border-top-right-radius: 0px;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
     }
     .chatList{
       margin-top: 2vh;
@@ -629,33 +671,40 @@ i{
       text-align: left;
       width: 100%;
     }
+    #messageButtonBar{
+      background-color: #343a40 !important;
+      width: 80%;
+      margin : auto;
+    }
     #message{
       word-break: break-all;
-      height: 45px;
-      width: 50%;
+      height: 5vh;
+      width: 79%;
       font-size: 20px;
       border-top-right-radius: 0px;
       border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px
+      border-bottom-left-radius: 10px;
     }
-  
+
+    
     #button{
-      border-top-right-radius: 10px;
+      border-top-right-radius: 0px;
       border-bottom-right-radius: 10px;
-      width: 200px;
+      width: 20%;
       margin-left: auto;
-      margin-right: 10%;
-      height: 45px;
+      height: 5vh;
       display: block;
       font-size: 20px;
       background-color: #ff6547;
-      color:white;
-      display:inline-block;
+      color: white;
+      display: inline-block;
       text-align: center;
       margin-top: 2vh;
       margin-bottom: 2vh;
       white-space: normal;
-    }
+      padding: 0%;
+  }
+    
       #eventChatHead{
       background-color: #ff6547;
       border-radius: 8px;
@@ -679,6 +728,14 @@ i{
     #friends{
       display: inline-block;
     }
+    #friends_constainer{
+      padding: 0;
+      margin-bottom:12vh;
+    }
+
+    #searchResultBullet{
+      list-style: none;
+    }
     #friendSearch{
       margin-left: auto;
       margin-right:auto;
@@ -686,6 +743,28 @@ i{
       white-space: nowrap;
       overflow: visible;
       text-overflow: ellipsis;
+    }
+    .searchResultPic{
+      list-style: none;
+      object-fit: cover;
+      border-radius: 50%;
+      border-style: none;
+      height: 7vh;
+      width: 7vh;
+      text-align: left;
+      margin-left: 2.5vw;
+      margin-right: 2.5vw;
+      margin-top: 1vw;
+      margin-bottom: 1vw;
+    }
+    #name{
+      word-break: break-all;
+      height: 5vh;
+      width: 79%;
+      font-size: 20px;
+      border-top-right-radius: 0px;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px
     }
     #searchFriendButton{
       border-top-right-radius: 10px;
@@ -704,16 +783,6 @@ i{
       white-space: normal;
       padding: 0%;
     }
-    #name{
-      word-break: break-all;
-      height: 5vh;
-      width: 79%;
-      font-size: 20px;
-      border-top-right-radius: 0px;
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px
-    }
-
     #friends form{
       background-color: #484848;
       width: 100vw;
@@ -724,6 +793,7 @@ i{
       padding-top: 1vh;
     }
     #friends_constainer{
+      text-align: left;
       width: 80%;
       background-color:white;
       margin-left: auto;
@@ -732,6 +802,7 @@ i{
       list-style-type: none;
     }
     .searchResultBar{
+      
       margin-left: auto;
       margin-right:auto;
       white-space: nowrap;
@@ -741,10 +812,12 @@ i{
       vertical-align:top;
     }
     #searchFriendName{
+      display: inline-block;
       margin: 0%;
-      width: 35%;
+      min-width: 30%;
       font-size: 20px;
       white-space: nowrap;
+      text-align: float-left;
     }
     .searchFriendButton{
       display: inline;
@@ -821,7 +894,7 @@ i{
       display: inline-block;
       color: black;
       font-size: 20px;
-      width: 30%;
+      min-width: 30%;
     }
 
     #myInquiry div{
@@ -865,7 +938,7 @@ i{
       height: 20%;
       width: 100%;
       text-align: center;
-      margin-bottom: 2vh;
+      margin-bottom: 4vh;
     }
     #img{
       display:inline-block;
@@ -995,7 +1068,7 @@ i{
 
 #infotime{
   color:white;
-  width: 80vh;
+  width: auto;
   font-size: 2vh;
  text-align: left;
  margin-left: 30vw;
@@ -1020,6 +1093,39 @@ i{
   width: 70%;
   border-width: 1mm;
 }
+#eventButtons{
+  display: inline-block;
+    text-align: center;
+    width: 70vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+#updateEventButton{
+  display: inline-block;
+  
+
+}
+#infoDeleteEventButton{
+ display: inline-block;
+
+
+}
+.updateEventButtonDesign{
+  border-radius: 10px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 5vh;
+  display: block;
+  font-size: 20px;
+  background-color: #ff6547;
+  color: white;
+  display: inline-block;
+  text-align: center;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  white-space: normal;
+}
 .infoDeleteEventButtonDesign{
   border-radius: 10px;
   width: 200px;
@@ -1035,4 +1141,19 @@ i{
   margin-top: 2vh;
   margin-bottom: 2vh;
   white-space: normal;
+}
+.backButton{
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin-top: 2px;
+  left: 0px;
+  margin-right: 10px;
+  font-size: 20px;
+  background-color: #ff6547;
+  color: white;
+  display: inline-block;
+  text-align: center;
+  position: absolute;
+  white-space: normal;
+  
 }

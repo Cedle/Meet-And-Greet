@@ -8,7 +8,6 @@ function newEvent(){
   var edatetime = document.getElementById("eventtime").value;
   var edesc = document.getElementById("eventdesc").value;
   var eplace = postition;
-
   var e = document.getElementById("inputGroupSelect01");
   var strUser = e.value;
   if(strUser == "private"){
@@ -18,7 +17,7 @@ function newEvent(){
   }
   // var evisibility = document.getElementById("eventtype").value;
   var values = [];
-  $("input[type=checkbox]:checked").each(function() {
+  $(".friendCheckbox:checked").each(function() {
     values.push($(this).val());
   });
   console.log(values);
@@ -73,7 +72,7 @@ async function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatet
     for (let i = 0; i < efriends.length; i++) {
       const element = efriends[i];
       $.put("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/eventservice/"+allData.uuid+"/"+eventKey,element,function(){
-    });
+      });
     }
    
     console.log("true");
@@ -197,8 +196,9 @@ async function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatet
 
       if(allData.uuid == location.host){
         setEvent(location,"public");
+        
       }
-      addMarker(location,imgUrl,0,0); 
+      addMarker(location,imgUrl,0,0);
   });
   firebase.database().ref("events/management/joinedPublic/"+allData.uuid+"/added").on("child_added", async function (snapshot3) {  
     var userName;
@@ -218,6 +218,7 @@ async function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatet
       location = 
         {
           evisibility: "public",
+          eventLöschen: "Event löschen",
           id: snapshot2.key,
           lat: snapshot2.val().eventPlace.lat,
           lng: snapshot2.val().eventPlace.lng,
@@ -231,8 +232,10 @@ async function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatet
           host: snapshot2.val().eventHost
         }
     setEvent(location,"public");
-
+    document.getElementById("marker"+snapshot3.val().path).outerHTML = "";
+    addMarker(location,imgUrl,0,2); 
     })
+    
   })
   //Event auf Karte anzeigen nach buttondrücken im Home
   async function showEvent(location){
@@ -244,19 +247,71 @@ async function writeNewEvent(ename, edesc, eplace, evisibility, efriends, edatet
     document.getElementById("infotime").textContent = location['time'];
     document.getElementById("infodesc").textContent = location['desc'];
     document.getElementById("infomanager").textContent = location['name'];
+    document.getElementById("updateEventButton").innerHTML = "";
+    document.getElementById("infoDeleteEventButton").innerHTML = "";
+    document.getElementById("multiSelectEventinfo").style.display = 'none'; 
     
+    addMarker(location,location.imgUrl,2,2);
+
     if(typeof deletebtn == "undefined"){
-    deletebtn = document.createElement("button");
+      deletebtn = document.createElement("button");
+      let div1 = document.createElement("div")
+      let content1 = document.createTextNode("Event löschen");
+      div1.appendChild(content1);
+      deletebtn.appendChild(div1);
+    }
+    if(typeof updatebtn == "undefined"){
+      updatebtn = document.createElement("button");
+      let div1 = document.createElement("div")
+      let content1 = document.createTextNode("Event updaten");
+      div1.appendChild(content1);
+      updatebtn.appendChild(div1);
     }
     if(location.host == allData.uuid){
       deletebtn.className = "infoDeleteEventButtonDesign";
       deletebtn.onclick = function() {deleteEvent(location['host'],location['id'],location['evisibility'])};
       document.getElementById("infoDeleteEventButton").appendChild(deletebtn);
+      updatebtn.className = "updateEventButtonDesign";
+      updatebtn.onclick = function() {editEvent(location)};
+      document.getElementById("updateEventButton").appendChild(updatebtn);
+     if(location.evisibility == "private"){
+        document.getElementById("multiSelectEventinfo").style.display = 'inline-block'; 
+      }
     }
     
     changeEvent();
 
   }
+
+//Event bearbeiten
+
+function editEvent(location){
+  location.desc = document.getElementById("infodesc").value;
+  console.log(location);
+  $.put("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/eventservice/editEvent/"+location.id+"/"+allData.uuid,location,function(snapshot){
+    if(snapshot == "nth"){
+      window.alert("nur der Host kann das Event bearbeiten");
+    }else{
+      var values = [];
+      $(".friendbox:checked").each(function() {
+        values.push($(this).val());
+      });
+      console.log(values);
+      var efriends = [];
+      for (let i = 0; i < values.length; i++) {
+        const element = values[i];
+        efriends.push({uuid: element});
+      }
+      for (let i = 0; i < efriends.length; i++) {
+        const element = efriends[i];
+        $.put("https://us-central1-meet-and-greet-cb3de.cloudfunctions.net/eventservice/"+allData.uuid+"/"+location.id,element,function(){
+        });
+      }
+    }
+  })
+}
+
+
 //Events löschen
 async function deleteEvent(eventhost,eventid,evisibility){
   if(allData.uuid === eventhost){

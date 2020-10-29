@@ -1,3 +1,4 @@
+
 const functions = require('firebase-functions');
 const express = require('express');
 const cors = require('cors');
@@ -27,21 +28,72 @@ userApp.put('/:eventid/:key', (req, res)=> {
     const event = req.params.eventid;
     const eventPath = req.params.key;
     const friend = req.body;
-    
-    
-        const userKey = db.ref("events/management/"+eventPath+"/added").push().key;
-        const eventKey = db.ref("events/management/"+friend.uuid+"/added").push().key;
-        db.ref("events/management/"+eventPath+"/added/"+userKey).set({
-            "uuid" : friend.uuid,
-            "key" : eventKey
+    let check = true;
+    let keys;
+        db.ref("events/management/"+eventPath+"/added").once("value",function(snapshot){
+            keys = Object.keys(snapshot.val());
+            for (let i = 0; i < keys.length; i++) {
+                const element = keys[i];
+                if(snapshot.val()[element].uuid === friend.uuid){
+                    check = false;
+                }
+            }
         })
-        db.ref("events/management/"+friend.uuid+"/added/"+eventKey).set({
-            "path" : event+"/"+eventPath,
-            "key" : userKey
-        })
+        if(check){
+            const userKey = db.ref("events/management/"+eventPath+"/added").push().key;
+            const eventKey = db.ref("events/management/"+friend.uuid+"/added").push().key;
+            db.ref("events/management/"+eventPath+"/added/"+userKey).set({
+                "uuid" : friend.uuid,
+                "key" : eventKey
+            })
+            db.ref("events/management/"+friend.uuid+"/added/"+eventKey).set({
+                "path" : event+"/"+eventPath,
+                "key" : userKey
+            })
+        }
+        
    
     
     res.status(201).send(JSON.stringify({test : eventPath}));
+})
+userApp.put('/editEvent/:eventid/:uuid', (req, res)=> {
+    const data = req.body;
+    const uuid = req.params.uuid;
+    let debug;
+    if(data.host === uuid){
+        if(data.evisibility === "private"){
+            debug = "private";
+            db.ref("events/private/"+uuid+"/"+data.id).set({
+                eventDateTime : data.time ,
+                eventDescription : data.desc ,
+                eventHost : data.host ,
+                eventName : data.title ,
+                eventPlace : {
+                    lng : data.lng,
+                    lat : data.lat
+                },
+                evisibility: data.evisibility
+            })
+        }else{
+            debug = "public";
+            db.ref("events/public/"+data.id).set({
+                eventDateTime : data.time ,
+                eventDescription : data.desc ,
+                eventHost : data.host ,
+                eventName : data.title ,
+                eventPlace : {
+                    lng : data.lng,
+                    lat : data.lat
+                },
+                evisibility: data.evisibility
+            })
+        }
+    }else{
+        debug = "nth";
+    }
+    
+
+    res.status(201).send(JSON.stringify(debug));
 })
 
 userApp.put('/joinEvent', (req, res)=> {
